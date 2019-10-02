@@ -123,9 +123,17 @@ import static android.view.View.VISIBLE;
     }
   }
 
+  @Override protected void onStart() {
+    if (emojiPopup != null) {
+      emojiPopup.start();
+    }
+
+    super.onStart();
+  }
+
   @Override protected void onStop() {
     if (emojiPopup != null) {
-      emojiPopup.dismiss();
+      emojiPopup.stop();
     }
 
     super.onStop();
@@ -142,5 +150,7 @@ import static android.view.View.VISIBLE;
         .setKeyboardAnimationStyle(R.style.emoji_fade_animation_style)
         .setPageTransformer(new PageTransformer())
         .build(editText);
+
+    emojiPopup.start();
   }
 }

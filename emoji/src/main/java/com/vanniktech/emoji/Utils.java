@@ -116,6 +116,11 @@ final class Utils {
     return availableHeight - (rect.bottom - rect.top);
   }
 
+  static int getProperHeight(final Activity activity) {
+    final Rect rect = Utils.windowVisibleDisplayFrame(activity);
+    return rect.bottom;
+  }
+
   static int getScreenWidth(@NonNull final Activity context) {
     return dpToPx(context, context.getResources().getConfiguration().screenWidthDp);
   }

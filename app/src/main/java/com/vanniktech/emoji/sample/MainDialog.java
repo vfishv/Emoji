@@ -40,9 +40,16 @@ import com.vanniktech.emoji.EmojiPopup;
     chatAdapter = new ChatAdapter();
   }
 
+  @Override public void onStart() {
+    if (emojiPopup != null) {
+      emojiPopup.start();
+    }
+
+    super.onStart();
+  }
   @Override public void onStop() {
     if (emojiPopup != null) {
-      emojiPopup.dismiss();
+      emojiPopup.stop();
     }
 
     super.onStop();
@@ -96,5 +103,7 @@ import com.vanniktech.emoji.EmojiPopup;
         .setKeyboardAnimationStyle(R.style.emoji_fade_animation_style)
         .setPageTransformer(new PageTransformer())
         .build(editText);
+
+    emojiPopup.start();
   }
 }
