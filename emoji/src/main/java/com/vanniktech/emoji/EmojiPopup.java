@@ -214,7 +214,7 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
     final int properWidth = Utils.getProperWidth(context);
 
     if (popupWindow.getWidth() != properWidth) {
-      popupWindow.setWidth(properWidth);E
+      popupWindow.setWidth(properWidth);
     }
 
     if (!isKeyboardOpen) {
