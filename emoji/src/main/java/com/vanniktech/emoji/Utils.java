@@ -117,8 +117,7 @@ final class Utils {
   }
 
   static int getProperHeight(final Activity activity) {
-    final Rect rect = Utils.windowVisibleDisplayFrame(activity);
-    return rect.bottom;
+    return Utils.windowVisibleDisplayFrame(activity).bottom;
   }
 
   static int getScreenWidth(@NonNull final Activity context) {

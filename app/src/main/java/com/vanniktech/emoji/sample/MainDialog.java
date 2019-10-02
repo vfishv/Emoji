@@ -47,7 +47,7 @@ import com.vanniktech.emoji.EmojiPopup;
 
     super.onStart();
   }
-  
+
   @Override public void onStop() {
     if (emojiPopup != null) {
       emojiPopup.stop();

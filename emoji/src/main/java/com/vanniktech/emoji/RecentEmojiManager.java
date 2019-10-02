@@ -21,11 +21,10 @@ public final class RecentEmojiManager implements RecentEmoji {
   static final int MAX_RECENTS = 40;
 
   @NonNull private EmojiList emojiList = new EmojiList(0);
-  @NonNull private SharedPreferences sharedPreferences;
+  @NonNull private final SharedPreferences sharedPreferences;
 
   public RecentEmojiManager(@NonNull final Context context) {
-    this.sharedPreferences =  context.getApplicationContext().getSharedPreferences(PREFERENCE_NAME,
-        Context.MODE_PRIVATE);
+    sharedPreferences = context.getApplicationContext().getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
   }
 
   @Override @SuppressWarnings({ "PMD.AvoidDeeplyNestedIfStmts", "checkstyle:nestedifdepth" }) @NonNull public Collection<Emoji> getRecentEmojis() {
