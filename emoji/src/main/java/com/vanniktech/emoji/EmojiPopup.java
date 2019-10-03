@@ -141,6 +141,11 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
     popupWindow.setBackgroundDrawable(new BitmapDrawable(context.getResources(), (Bitmap) null)); // To avoid borders and overdraw.
     popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
       @Override public void onDismiss() {
+        if (editText instanceof EmojiEditText) {
+          if (((EmojiEditText)editText).isKeyboardInputDisabled()) {
+            editText.clearFocus();
+          }
+        }
         if (onEmojiPopupDismissListener != null) {
           onEmojiPopupDismissListener.onEmojiPopupDismiss();
         }
