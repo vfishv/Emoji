@@ -8,6 +8,10 @@ import androidx.annotation.Nullable;
 import com.vanniktech.emoji.EmojiLayoutFactory;
 
 public class MaterialEmojiLayoutFactory extends EmojiLayoutFactory {
+  public MaterialEmojiLayoutFactory() {
+    super();
+  }
+
   public MaterialEmojiLayoutFactory(@Nullable LayoutInflater.Factory2 delegate) {
     super(delegate);
   }
