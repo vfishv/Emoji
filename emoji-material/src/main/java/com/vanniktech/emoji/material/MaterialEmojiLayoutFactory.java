@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import com.vanniktech.emoji.EmojiLayoutFactory;
 
+/** Layout Factory that substitutes certain Views to add automatic Emoji support. */
 public class MaterialEmojiLayoutFactory extends EmojiLayoutFactory {
   public MaterialEmojiLayoutFactory() {
     super();
