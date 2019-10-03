@@ -13,11 +13,11 @@ public class MaterialEmojiLayoutFactory extends EmojiLayoutFactory {
     super();
   }
 
-  public MaterialEmojiLayoutFactory(@Nullable LayoutInflater.Factory2 delegate) {
+  public MaterialEmojiLayoutFactory(@Nullable final LayoutInflater.Factory2 delegate) {
     super(delegate);
   }
 
-  @Override public View onCreateView(@Nullable View parent, String name, Context context, AttributeSet attrs) {
+  @Override public View onCreateView(@Nullable final View parent, final String name, final Context context, final AttributeSet attrs) {
     if ("Button".equals(name)) {
       return new EmojiMaterialButton(context, attrs);
     } else if ("CheckBox".equals(name)) {

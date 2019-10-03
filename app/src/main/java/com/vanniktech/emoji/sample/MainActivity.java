@@ -73,9 +73,7 @@ import static android.view.View.VISIBLE;
       }
     });
 
-    emojiButton.setOnClickListener(ignore -> {
-      emojiPopup.toggle();
-    });
+    emojiButton.setOnClickListener(ignore -> emojiPopup.toggle());
 
     sendButton.setOnClickListener(ignore -> {
       final String text = editText.getText().toString().trim();

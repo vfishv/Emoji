@@ -41,7 +41,9 @@
         android:layout_weight="1"
         android:imeOptions="actionSend|flagNoExtractUi"
         android:inputType="textCapSentences|textMultiLine"
+        android:importantForAutofill="no"
         android:maxLines="3"
+        tools:ignore="LabelFor"
         />
     <ImageView
         android:id="@+id/main_activity_send"
