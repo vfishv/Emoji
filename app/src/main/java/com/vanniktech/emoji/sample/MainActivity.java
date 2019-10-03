@@ -65,7 +65,12 @@ import static android.view.View.VISIBLE;
       }
     });
 
-    emojiButton.setOnClickListener(ignore -> emojiPopup.toggle());
+    emojiButton.setOnClickListener(ignore -> {
+      // this is needed because the dialog has cleared the insets listener
+      emojiPopup.start();
+      emojiPopup.toggle();
+    });
+
     sendButton.setOnClickListener(ignore -> {
       final String text = editText.getText().toString().trim();
 
@@ -91,6 +96,7 @@ import static android.view.View.VISIBLE;
   @Override public boolean onOptionsItemSelected(final MenuItem item) {
     switch (item.getItemId()) {
       case R.id.menuMainShowDialog:
+        emojiPopup.stop();
         MainDialog.show(this);
         return true;
       case R.id.menuMainVariantIos:
@@ -150,7 +156,5 @@ import static android.view.View.VISIBLE;
         .setKeyboardAnimationStyle(R.style.emoji_fade_animation_style)
         .setPageTransformer(new PageTransformer())
         .build(editText);
-
-    emojiPopup.start();
   }
 }

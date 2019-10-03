@@ -199,11 +199,11 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
 
   /** Call this method in your #onStop method. */
   public void stop() {
+    dismiss();
+
     if (SDK_INT >= LOLLIPOP) {
       context.getWindow().getDecorView().setOnApplyWindowInsetsListener(null);
     }
-
-    dismiss();
   }
 
   void updateKeyboardStateOpened(final int keyboardHeight) {
