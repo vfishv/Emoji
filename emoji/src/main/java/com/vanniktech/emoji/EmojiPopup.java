@@ -193,6 +193,7 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
         }
       });
     } else {
+      rootView.getViewTreeObserver().removeGlobalOnLayoutListener(onGlobalLayoutListener);
       rootView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
     }
   }
@@ -253,6 +254,8 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
 
   public void toggle() {
     if (!popupWindow.isShowing()) {
+      // this is needed because something might have cleared the insets listener
+      start();
       show();
     } else {
       dismiss();

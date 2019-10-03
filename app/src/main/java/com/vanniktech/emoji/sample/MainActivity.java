@@ -66,8 +66,6 @@ import static android.view.View.VISIBLE;
     });
 
     emojiButton.setOnClickListener(ignore -> {
-      // this is needed because the dialog has cleared the insets listener
-      emojiPopup.start();
       emojiPopup.toggle();
     });
 
