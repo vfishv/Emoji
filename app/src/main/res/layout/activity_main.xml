@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity"
     >
-  <com.vanniktech.emoji.material.EmojiMaterialButton
+  <Button
       android:id="@+id/main_activity_material_button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -16,7 +16,7 @@
       android:layout_marginStart="16dp"
       android:layout_marginLeft="16dp"
       />
-  <com.vanniktech.emoji.material.EmojiMaterialCheckBox
+  <CheckBox
       android:id="@+id/main_activity_force_emojis_only"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
         app:srcCompat="@drawable/emoji_ios_category_smileysandpeople"
         tools:ignore="ContentDescription"
         />
-    <com.vanniktech.emoji.EmojiEditText
+    <EditText
         android:id="@+id/main_activity_chat_bottom_message_edittext"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
