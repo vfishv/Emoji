@@ -10,6 +10,10 @@ import androidx.annotation.Nullable;
 public class EmojiLayoutFactory implements LayoutInflater.Factory2 {
   @Nullable private final LayoutInflater.Factory2 delegate;
 
+  public EmojiLayoutFactory() {
+    delegate = null;
+  }
+
   public EmojiLayoutFactory(@Nullable final LayoutInflater.Factory2 delegate) {
     this.delegate = delegate;
   }
@@ -21,6 +25,10 @@ public class EmojiLayoutFactory implements LayoutInflater.Factory2 {
       return new EmojiEditText(context, attrs);
     } else if ("Button".equals(name)) {
       return new EmojiButton(context, attrs);
+    } else if ("AutoCompleteTextView".equals(name)) {
+      return new EmojiAutoCompleteTextView(context, attrs);
+    } else if ("MultiAutoCompleteTextView".equals(name)) {
+      return new EmojiMultiAutoCompleteTextView(context, attrs);
     } else if (delegate != null) {
       return delegate.onCreateView(parent, name, context, attrs);
     }
