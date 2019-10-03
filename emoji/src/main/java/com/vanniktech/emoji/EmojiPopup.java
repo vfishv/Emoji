@@ -74,11 +74,11 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
 
   final View.OnAttachStateChangeListener onAttachStateChangeListener = new View.OnAttachStateChangeListener() {
     @Override public void onViewAttachedToWindow(final View v) {
-      // Unused.
+      start();
     }
 
     @Override public void onViewDetachedFromWindow(final View v) {
-      dismiss();
+      stop();
 
       popupWindow.setOnDismissListener(null);
 
@@ -165,8 +165,7 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
     }
   }
 
-  /** Call this method in your #onStart method. */
-  public void start() {
+  void start() {
     if (SDK_INT >= LOLLIPOP) {
       context.getWindow().getDecorView().setOnApplyWindowInsetsListener(new View.OnApplyWindowInsetsListener() {
         int previousOffset;
@@ -180,7 +179,7 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
             offset = insets.getSystemWindowInsetBottom() - insets.getStableInsetBottom();
           }
 
-          if (offset != previousOffset) {
+          if (offset != previousOffset || offset == 0) {
             previousOffset = offset;
 
             if (offset > Utils.dpToPx(context, MIN_KEYBOARD_HEIGHT)) {
@@ -194,12 +193,12 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
         }
       });
     } else {
+      rootView.getViewTreeObserver().removeGlobalOnLayoutListener(onGlobalLayoutListener);
       rootView.getViewTreeObserver().addOnGlobalLayoutListener(onGlobalLayoutListener);
     }
   }
 
-  /** Call this method in your #onStop method. */
-  public void stop() {
+  void stop() {
     dismiss();
 
     if (SDK_INT >= LOLLIPOP) {
@@ -256,6 +255,8 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
 
   public void toggle() {
     if (!popupWindow.isShowing()) {
+      // this is needed because something might have cleared the insets listener
+      start();
       show();
     } else {
       dismiss();
