@@ -67,6 +67,7 @@ dependencies {
   androidTestImplementation deps.support.test.runner
   androidTestImplementation deps.support.test.rules
   androidTestImplementation deps.fastLaneScreenGrab
+  androidTestAnnotationProcessor deps.support.test.autoService
 }
 
 configurations.all {
