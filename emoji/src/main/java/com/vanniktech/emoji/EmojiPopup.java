@@ -142,7 +142,7 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
     popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
       @Override public void onDismiss() {
         if (editText instanceof EmojiEditText) {
-          if (((EmojiEditText)editText).isKeyboardInputDisabled()) {
+          if (((EmojiEditText) editText).isKeyboardInputDisabled()) {
             editText.clearFocus();
           }
         }
