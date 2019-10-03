@@ -179,7 +179,7 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
             offset = insets.getSystemWindowInsetBottom() - insets.getStableInsetBottom();
           }
 
-          if (offset != previousOffset) {
+          if (offset != previousOffset || offset == 0) {
             previousOffset = offset;
 
             if (offset > Utils.dpToPx(context, MIN_KEYBOARD_HEIGHT)) {
