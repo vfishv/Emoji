@@ -42,14 +42,6 @@ import com.vanniktech.emoji.material.MaterialEmojiLayoutFactory;
     chatAdapter = new ChatAdapter();
   }
 
-  @Override public void onStop() {
-    if (emojiPopup != null) {
-      emojiPopup.dismiss();
-    }
-
-    super.onStop();
-  }
-
   @Override @NonNull public Dialog onCreateDialog(final Bundle savedInstanceState) {
     return new AlertDialog.Builder(getContext())
             .setView(buildView())
