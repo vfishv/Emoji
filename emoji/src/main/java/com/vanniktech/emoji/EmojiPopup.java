@@ -245,8 +245,8 @@ public final class EmojiPopup implements EmojiResultReceiver.Receiver {
 
   /**
    * Set PopUpWindow's height.
-   * If height is not 0 then this value will be used later on. If it is 0 then the keyboard height will
-   * be dynamically calculated and set as {@link PopupWindow} height.
+   * If height is greater than 0 then this value will be used later on. If it is 0 then the
+   * keyboard height will be dynamically calculated and set as {@link PopupWindow} height.
    * @param popupWindowHeight - the height of {@link PopupWindow}
    */
   public void setPopupWindowHeight(final int popupWindowHeight) {
