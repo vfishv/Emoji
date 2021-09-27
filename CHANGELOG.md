@@ -1,7 +1,15 @@
 # Change Log
 
-Version 0.8.0 *(In development)*
---------------------------------
+Version 0.8.0 *(2021-09-27)*
+----------------------------
+
+- NoRecentEmoji implementation. Fixes \#477 [\#510](https://github.com/vanniktech/Emoji/pull/510) ([vanniktech](https://github.com/vanniktech))
+- Fix Memory Leak with OnAttachStateChangeListener. [\#508](https://github.com/vanniktech/Emoji/pull/508) ([vanniktech](https://github.com/vanniktech))
+- Update gradle-maven-publish-plugin to 0.16.0 [\#504](https://github.com/vanniktech/Emoji/pull/504) ([vanniktech](https://github.com/vanniktech))
+- Switch to GitHub workflows. [\#503](https://github.com/vanniktech/Emoji/pull/503) ([vanniktech](https://github.com/vanniktech))
+- EmojiEditText cursor height is too small by wirting emojis followed by text fixes \#492 [\#493](https://github.com/vanniktech/Emoji/pull/493) ([denjoo](https://github.com/denjoo))
+- Only construct RecentEmojiManager if one hasn’t already been set [\#478](https://github.com/vanniktech/Emoji/pull/478) ([lukesleeman](https://github.com/lukesleeman))
+- minSdk 21, targetSdk 29 & update all of the dependencies [\#465](https://github.com/vanniktech/Emoji/pull/465) ([vanniktech](https://github.com/vanniktech))
 
 Version 0.7.0 *(2020-08-19)*
 ----------------------------
