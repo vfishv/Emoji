@@ -1,7 +1,11 @@
 # Change Log
 
-Version 0.9.0 *(In development)*
---------------------------------
+Version 0.9.0 *(2022-04-09)*
+----------------------------
+
+- Fix Memory Leak with setOnApplyWindowInsetsListener. [\#569](https://github.com/vanniktech/Emoji/pull/569) ([vanniktech](https://github.com/vanniktech))
+- Keep file to keep sheets which are accessed through reflection. [\#562](https://github.com/vanniktech/Emoji/pull/562) ([vanniktech](https://github.com/vanniktech))
+- Update dependencies. [\#561](https://github.com/vanniktech/Emoji/pull/561) ([vanniktech](https://github.com/vanniktech))
 
 Version 0.8.0 *(2021-09-27)*
 ----------------------------

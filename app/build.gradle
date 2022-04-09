@@ -13,7 +13,7 @@ android {
     applicationId "com.vanniktech.emoji.sample"
     minSdkVersion rootProject.ext.minSdkVersion as int
     targetSdkVersion rootProject.ext.targetSdkVersion as int
-    versionCode rootProject.ext.versionCode as int
+    versionCode 10
     versionName rootProject.ext.versionName as String
 
     vectorDrawables.useSupportLibrary = true
