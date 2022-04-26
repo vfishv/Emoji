@@ -22,7 +22,6 @@ dependencies {
 
 dependencies {
   testImplementation rootProject.ext.testing.junit
-  testImplementation rootProject.ext.testing.assertJ
 }
 
 apply plugin: "com.vanniktech.maven.publish"
