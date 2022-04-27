@@ -2,26 +2,27 @@
 
 A library to add Emoji support to your Android app. Emojis can be picked in a PopupWindow. In order to edit and display text with Emojis this library provides public APIs:
 
-- [`EmojiAutoCompleteTextView`](emoji/src/main/java/com/vanniktech/emoji/EmojiAutoCompleteTextView.java)
-- [`EmojiButton`](emoji/src/main/java/com/vanniktech/emoji/EmojiButton.java)
-- [`EmojiCheckbox`](emoji/src/main/java/com/vanniktech/emoji/EmojiCheckbox.java)
-- [`EmojiEditText`](emoji/src/main/java/com/vanniktech/emoji/EmojiEditText.java)
-- [`EmojiMultiAutoCompleteTextView`](emoji/src/main/java/com/vanniktech/emoji/EmojiMultiAutoCompleteTextView.java)
-- [`EmojiTextView`](emoji/src/main/java/com/vanniktech/emoji/EmojiTextView.java)
+- [`EmojiAutoCompleteTextView`](emoji/src/main/java/com/vanniktech/emoji/EmojiAutoCompleteTextView.kt)
+- [`EmojiButton`](emoji/src/main/java/com/vanniktech/emoji/EmojiButton.kt)
+- [`EmojiCheckbox`](emoji/src/main/java/com/vanniktech/emoji/EmojiCheckbox.kt)
+- [`EmojiEditText`](emoji/src/main/java/com/vanniktech/emoji/EmojiEditText.kt)
+- [`EmojiMultiAutoCompleteTextView`](emoji/src/main/java/com/vanniktech/emoji/EmojiMultiAutoCompleteTextView.kt)
+- [`EmojiTextView`](emoji/src/main/java/com/vanniktech/emoji/EmojiTextView.kt)
 
-There's also a [`EmojiLayoutFactory`](emoji/src/main/java/com/vanniktech/emoji/EmojiLayoutFactory.java), which can be used to get automatic Emoji support when using normal Android Views such as `TextView`, `Checkbox`, etc.
+There's also a [`EmojiLayoutFactory`](emoji/src/main/java/com/vanniktech/emoji/EmojiLayoutFactory.kt), which can be used to get automatic Emoji support when using normal Android Views such as `TextView`, `Checkbox`, etc.
 
 Material Design Library bindings can be included via:
 
 ```groovy
-implementation "com.vanniktech:emoji-material:0.9.0"
+implementation "com.vanniktech:emoji-material:0.10.0"
 ```
 
-- [`EmojiMaterialButton`](emoji-material/src/main/java/com/vanniktech/emoji/material/EmojiMaterialButton.java)
-- [`EmojiMaterialRadioButton`](emoji-material/src/main/java/com/vanniktech/emoji/material/EmojiMaterialRadioButton.java)
-- [`MaterialCheckBox`](emoji-material/src/main/java/com/vanniktech/emoji/material/MaterialCheckBox.java)
+- [`EmojiMaterialButton`](emoji-material/src/main/java/com/vanniktech/emoji/material/EmojiMaterialButton.kt)
+- [`EmojiMaterialRadioButton`](emoji-material/src/main/java/com/vanniktech/emoji/material/EmojiMaterialRadioButton.kt)
+- [`MaterialCheckBox`](emoji-material/src/main/java/com/vanniktech/emoji/material/MaterialCheckBox.kt)
+- [`EmojiTextInputEditText`](./emoji-material/src/main/java/com/vanniktech/emoji/material/EmojiTextInputEditText.kt)
 
-There's also a [`MaterialEmojiLayoutFactory`](emoji-material/src/main/java/com/vanniktech/emoji/material/MaterialEmojiLayoutFactory.java), which can be used to get automatic Emoji support.
+There's also a [`MaterialEmojiLayoutFactory`](emoji-material/src/main/java/com/vanniktech/emoji/material/MaterialEmojiLayoutFactory.kt), which can be used to get automatic Emoji support.
 
 The library has 4 different providers to choose from ([iOS](#ios-emojis), [Google](#google), [Facebook](#facebook) & [Twitter](#twitter)).
 
@@ -32,13 +33,13 @@ The library has 4 different providers to choose from ([iOS](#ios-emojis), [Googl
 For getting the above iOS Emojis simply add the dependency and code below.
 
 ```groovy
-implementation "com.vanniktech:emoji-ios:0.9.0"
+implementation "com.vanniktech:emoji-ios:0.10.0"
 ```
 
 And install the provider in your application class.
 
-```java
-EmojiManager.install(new IosEmojiProvider());
+```kotlin
+EmojiManager.install(IosEmojiProvider());
 ```
 
 ## Google
@@ -48,13 +49,13 @@ EmojiManager.install(new IosEmojiProvider());
 For getting the above Google Emojis simply add the dependency and code below.
 
 ```groovy
-implementation "com.vanniktech:emoji-google:0.9.0"
+implementation "com.vanniktech:emoji-google:0.10.0"
 ```
 
 And install the provider in your application class.
 
-```java
-EmojiManager.install(new GoogleEmojiProvider());
+```kotlin
+EmojiManager.install(GoogleEmojiProvider());
 ```
 
 ## Facebook
@@ -64,13 +65,13 @@ EmojiManager.install(new GoogleEmojiProvider());
 For getting the above Facebook Emojis simply add the dependency and code below.
 
 ```groovy
-implementation "com.vanniktech:emoji-facebook:0.9.0"
+implementation "com.vanniktech:emoji-facebook:0.10.0"
 ```
 
 And install the provider in your application class.
 
-```java
-EmojiManager.install(new FacebookEmojiProvider());
+```kotlin
+EmojiManager.install(FacebookEmojiProvider());
 ```
 
 ## Twitter
@@ -80,13 +81,13 @@ EmojiManager.install(new FacebookEmojiProvider());
 For getting the above Twitter Emojis simply add the dependency and code below.
 
 ```groovy
-implementation "com.vanniktech:emoji-twitter:0.9.0"
+implementation "com.vanniktech:emoji-twitter:0.10.0"
 ```
 
 And install the provider in your application class.
 
-```java
-EmojiManager.install(new TwitterEmojiProvider());
+```kotlin
+EmojiManager.install(TwitterEmojiProvider());
 ```
 
 ## Custom Emojis
@@ -96,14 +97,14 @@ If you want to display your own Emojis you can create your own implementation of
 All of the core API lays in `emoji`, which is being pulled in automatically by the provided implementations:
 
 ```groovy
-implementation "com.vanniktech:emoji:0.9.0"
+implementation "com.vanniktech:emoji:0.10.0"
 ```
 
 ## Set up
 
 ### Inserting Emojis
 
-Declare your [`EmojiEditText`](emoji/src/main/java/com/vanniktech/emoji/EmojiEditText.java) in your layout xml file.
+Declare your [`EmojiEditText`](emoji/src/main/java/com/vanniktech/emoji/EmojiEditText.kt) in your layout xml file.
 
 ```xml
 <com.vanniktech.emoji.EmojiEditText
@@ -115,17 +116,17 @@ Declare your [`EmojiEditText`](emoji/src/main/java/com/vanniktech/emoji/EmojiEdi
   android:maxLines="3"/>
 ```
 
-To open the [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.java) execute the code below:
+To open the [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.kt) execute the code below:
 
-```java
-final EmojiPopup emojiPopup = EmojiPopup.Builder.fromRootView(rootView).build(emojiEditText);
+```kotlin
+final EmojiPopup emojiPopup = EmojiPopup(rootView, emojiEditText);
 emojiPopup.toggle(); // Toggles visibility of the Popup.
 emojiPopup.dismiss(); // Dismisses the Popup.
 emojiPopup.isShowing(); // Returns true when Popup is showing.
 ```
 
 The `rootView` is the rootView of your layout xml file which will be used for calculating the height of the keyboard.
-`emojiEditText` is the [`EmojiEditText`](emoji/src/main/java/com/vanniktech/emoji/EmojiEditText.java) that you declared in your layout xml file.
+`emojiEditText` is the [`EmojiEditText`](emoji/src/main/java/com/vanniktech/emoji/EmojiEditText.kt) that you declared in your layout xml file.
 
 ### Displaying Emojis
 
@@ -136,51 +137,71 @@ The `rootView` is the rootView of your layout xml file which will be used for ca
   android:layout_height="wrap_content"/>
 ```
 
-Just use the [`EmojiTextView`](emoji/src/main/java/com/vanniktech/emoji/EmojiTextView.java) and call `setText` with the String that contains Unicode encoded Emojis. To change the size of the displayed Emojis use the `lineHeight` property from TextView.
+Just use the [`EmojiTextView`](emoji/src/main/java/com/vanniktech/emoji/EmojiTextView.kt) and call `setText` with the String that contains Unicode encoded Emojis. To change the size of the displayed Emojis use the `lineHeight` property from TextView.
 
 ### EmojiPopup Listeners
 
-The [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.java) builder allows you to declare several listeners.
+The [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.kt) class allows you to declare several listeners.
 
-```java
-setOnSoftKeyboardCloseListener(OnSoftKeyboardCloseListener listener);
-setOnEmojiClickListener(OnEmojiClickListener listener);
-setOnSoftKeyboardOpenListener(OnSoftKeyboardOpenListener listener);
-setOnEmojiPopupShownListener(OnEmojiPopupShownListener listener);
-setOnEmojiPopupDismissListener(OnEmojiPopupDismissListener listener);
-setOnEmojiBackspaceClickListener(OnEmojiBackspaceClickListener listener);
+```kotlin
+EmojiPopup(
+  onSoftKeyboardCloseListener = { },
+  onEmojiClickListener = { },
+  onSoftKeyboardOpenListener = { },
+  onEmojiPopupShownListener = { },
+  onEmojiPopupDismissListener = { },
+  onEmojiBackspaceClickListener = { },
+)
 ```
 
 ### EmojiPopup Configuration
 
 #### Custom Recent Emoji implementation
 
-You can pass your own implementation of the recent Emojis. Implement the [`RecentEmoji`](emoji/src/main/java/com/vanniktech/emoji/RecentEmoji.java) interface and pass it when you're building the [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.java):
+You can pass your own implementation of the recent Emojis. Implement the [`RecentEmoji`](emoji/src/main/java/com/vanniktech/emoji/RecentEmoji.kt) interface and pass it when you're building the [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.kt):
 
-```java
-setRecentEmoji(yourClassThatImplementsRecentEmoji)
+```kotlin
+EmojiPopup(
+  recentEmoji = yourClassThatImplementsRecentEmoji,
+)
 ```
 
-If no instance or a null instance is set the [default implementation](./emoji/src/main/java/com/vanniktech/emoji/RecentEmojiManager.java) will be used.
+If no instance or a null instance is set the [default implementation](emoji/src/main/java/com/vanniktech/emoji/RecentEmojiManager.kt) will be used.
 
 #### Custom Variant Emoji implementation
 
-You can pass your own implementation of the variant Emojis. Implement the [`VariantEmoji`](emoji/src/main/java/com/vanniktech/emoji/VariantEmoji.java) interface and pass it when you're building the [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.java):
+You can pass your own implementation of the variant Emojis. Implement the [`VariantEmoji`](emoji/src/main/java/com/vanniktech/emoji/VariantEmoji.kt) interface and pass it when you're building the [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.kt):
 
-```java
-setVariantEmoji(yourClassThatImplementsVariantEmoji)
+```kotlin
+EmojiPopup(
+  variantEmoji = yourClassThatImplementsVariantEmoji,
+)
 ```
 
-If no instance or a null instance is set the [default implementation](./emoji/src/main/java/com/vanniktech/emoji/VariantEmojiManager.java) will be used.
+If no instance or a null instance is set the [default implementation](emoji/src/main/java/com/vanniktech/emoji/VariantEmojiManager.kt) will be used.
+
+#### Custom Search Emoji implementation
+
+You can pass your own implementation for searching Emojis. Implement the [`SearchEmoji`](emoji/src/main/java/com/vanniktech/emoji/SearchEmoji.kt) interface and pass it when you're building the [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.kt):
+
+```kotlin
+EmojiPopup(
+  searchEmoji = yourClassThatImplementsSearchEmoji,
+)
+```
+
+If no instance or a null instance is set the [default implementation](emoji/src/main/java/com/vanniktech/emoji/SearchEmojiManager.kt) will be used.
 
 ### Animations
 
 #### Custom keyboard enter and exit animations
 
-You can pass your own animation style for enter and exit transitions of the Emoji keyboard while you're building the [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.java):
+You can pass your own animation style for enter and exit transitions of the Emoji keyboard while you're building the [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.kt):
 
-```java
-setKeyboardAnimationStyle(R.style.emoji_fade_animation_style);
+```kotlin
+EmojiPopup(
+  keyboardAnimationStyle = emoji_fade_animation_style,
+)
 ```
 
 If no style is set the keyboard will appear and exit as a regular PopupWindow.
@@ -191,24 +212,31 @@ This library currently ships with two animation styles as an example:
 
 #### Custom page transformers
 
-You can pass your own Page Transformer for the Emoji keyboard View Pager while you're building the [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.java):
+You can pass your own Page Transformer for the Emoji keyboard View Pager while you're building the [`EmojiPopup`](emoji/src/main/java/com/vanniktech/emoji/EmojiPopup.kt):
 
-```java
-setPageTransformer(new MagicTransformer());
+```kotlin
+EmojiPopup(
+  pageTransformer = MagicTransformer(),
+)
 ```
 
 If no transformer is set ViewPager will behave as its usual self. Please do note that this library currently does not ship any example Page Transformers.
 
 ### Other goodies
 
-- [`MaximalNumberOfEmojisInputFilter`](emoji/src/main/java/com/vanniktech/emoji/MaximalNumberOfEmojisInputFilter.java) can be used to limit the number of Emojis one can type into an EditText
-- [`OnlyEmojisInputFilter`](emoji/src/main/java/com/vanniktech/emoji/OnlyEmojisInputFilter.java) can be used to limit the input of an EditText to emoji only
-- [`SingleEmojiTrait`](emoji/src/main/java/com/vanniktech/emoji/SingleEmojiTrait.java) can be used to force a single emoji which can be replaced by a new one
+- [`MaximalNumberOfEmojisInputFilter`](./emoji/src/main/kotlin/com/vanniktech/emoji/inputfilters/MaximalNumberOfEmojisInputFilter.kt) can be used to limit the number of Emojis one can type into an EditText
+- [`OnlyEmojisInputFilter`](./emoji/src/main/kotlin/com/vanniktech/emoji/inputfilters/OnlyEmojisInputFilter.kt) can be used to limit the input of an EditText to emoji only
+- [`ForceSingleEmojiTrait`](./emoji/src/main/kotlin/com/vanniktech/emoji/traits/ForceSingleEmojiTrait.kt) can be used to force a single emoji which can be replaced by a new one
+- [`DisableKeyboardInputTrait`](./emoji/src/main/kotlin/com/vanniktech/emoji/traits/DisableKeyboardInputTrait.kt) disable input of the normal soft keyboard
+- [`SearchInPlaceTrait`](./emoji/src/main/kotlin/com/vanniktech/emoji/traits/SearchInPlaceTrait.kt) search for an emoji using :query
+- [`EmojiView`](emoji/src/main/java/com/vanniktech/emoji/EmojiView.kt) View of all emojis and categories which does not depend on a keyboard
 - `EmojiEditText#disableKeyboardInput()` to disable normal keyboard input. To undo call `#enableKeyboardInput()`
+
+Most of them are also showcased in the sample app.
 
 # Snapshots
 
-This library is also distributed as a SNAPSHOT if you like to check out the latest features.
+This library is also distributed as a SNAPSHOT, if you like to check out the latest features.
 
 > Note: The API is not stable and may change and break your code at any time if you use a SNAPSHOT.
 
