@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText"
     tools:layout_height="match_parent"
     tools:layout_width="match_parent"
-    tools:orientation="horizontal"
+    tools:orientation="vertical"
     tools:parentTag="android.widget.LinearLayout"
     >
-  <Button
-      android:id="@+id/customViewButton"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_marginEnd="8dp"
-      android:text="Trigger"
-      tools:ignore="HardcodedText"
-      />
-  <com.vanniktech.emoji.EmojiEditText
-      android:id="@+id/customViewEditText"
-      android:layout_marginStart="8dp"
+  <TextView
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_margin="8dp"
+      android:text="Custom view which only allows emojis to be entered."
+      />
+  <Button
+      android:id="@+id/button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="8dp"
+      android:text="Trigger keyboard"
+      />
+  <com.vanniktech.emoji.material.EmojiMaterialCheckBox
+      android:id="@+id/onlyAllowSingleEmoji"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="8dp"
+      android:text="Only allow single emoji"
+      />
+  <com.vanniktech.emoji.EmojiEditText
+      android:id="@+id/editText"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="8dp"
       android:importantForAutofill="no"
       tools:ignore="LabelFor,TextFields"
       />

@@ -38,14 +38,14 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.Px;
+import androidx.annotation.StyleableRes;
 import androidx.core.content.ContextCompat;
 import com.vanniktech.emoji.emoji.Emoji;
 import java.util.ArrayList;
 import java.util.List;
 
-final class Utils {
-  static final String TAG = "Utils";
-
+public final class Utils {
   static final int DONT_UPDATE_FLAG = -1;
 
   @NonNull static <T> T checkNotNull(@Nullable final T reference, final String message) {
@@ -56,9 +56,9 @@ final class Utils {
     return reference;
   }
 
-  static float initTextView(final TextView textView, final AttributeSet attrs) {
+  @PrivateApi @Px public static float initTextView(final TextView textView, final AttributeSet attrs, @StyleableRes final int[] stylable, @StyleableRes final int emojiSizeAttr) {
     if (!textView.isInEditMode()) {
-      EmojiManager.getInstance().verifyInstalled();
+      EmojiManager.INSTANCE.verifyInstalled();
     }
 
     final Paint.FontMetrics fontMetrics = textView.getPaint().getFontMetrics();
@@ -69,10 +69,10 @@ final class Utils {
     if (attrs == null) {
       emojiSize = defaultEmojiSize;
     } else {
-      final TypedArray a = textView.getContext().obtainStyledAttributes(attrs, R.styleable.EmojiTextView);
+      final TypedArray a = textView.getContext().obtainStyledAttributes(attrs, stylable);
 
       try {
-        emojiSize = a.getDimension(R.styleable.EmojiTextView_emojiSize, defaultEmojiSize);
+        emojiSize = a.getDimension(emojiSizeAttr, defaultEmojiSize);
       } finally {
         a.recycle();
       }
@@ -124,7 +124,7 @@ final class Utils {
     return result;
   }
 
-  static void backspace(@NonNull final EditText editText) {
+  @PrivateApi public static void backspace(@NonNull final EditText editText) {
     final KeyEvent event = new KeyEvent(0, 0, 0, KeyEvent.KEYCODE_DEL, 0, 0, 0, 0, KeyEvent.KEYCODE_ENDCALL);
     editText.dispatchKeyEvent(event);
   }
@@ -141,16 +141,14 @@ final class Utils {
     return result;
   }
 
-  static void input(@NonNull final EditText editText, @Nullable final Emoji emoji) {
-    if (emoji != null) {
-      final int start = editText.getSelectionStart();
-      final int end = editText.getSelectionEnd();
+  @PrivateApi public static void input(@NonNull final EditText editText, @NonNull final Emoji emoji) {
+    final int start = editText.getSelectionStart();
+    final int end = editText.getSelectionEnd();
 
-      if (start < 0) {
-        editText.append(emoji.getUnicode());
-      } else {
-        editText.getText().replace(Math.min(start, end), Math.max(start, end), emoji.getUnicode(), 0, emoji.getUnicode().length());
-      }
+    if (start < 0) {
+      editText.append(emoji.getUnicode());
+    } else {
+      editText.getText().replace(Math.min(start, end), Math.max(start, end), emoji.getUnicode(), 0, emoji.getUnicode().length());
     }
   }
 
