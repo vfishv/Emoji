@@ -1,6 +1,22 @@
+/*
+ * Copyright (C) 2016 - Niklas Baudy, Ruben Gees, Mario Đanić and contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 package com.vanniktech.emoji;
 
-import com.pushtorefresh.private_constructor_checker.PrivateConstructorChecker;
 import com.vanniktech.emoji.emoji.Emoji;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,16 +33,9 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
   static final int CODE_POINT_2 = EMOJI_2.codePointAt(0);
 
   @Before public void setUp() {
-    final Emoji emoji1 = new Emoji(CODE_POINT_1, R.drawable.emoji_recent, false);
-    final Emoji emoji2 = new Emoji(CODE_POINT_2, R.drawable.emoji_backspace, false);
+    final Emoji emoji1 = new Emoji(CODE_POINT_1, new String[]{"test"}, R.drawable.emoji_recent, false);
+    final Emoji emoji2 = new Emoji(CODE_POINT_2, new String[]{"test"}, R.drawable.emoji_backspace, false);
     EmojiManager.install(TestEmojiProvider.from(emoji1, emoji2));
-  }
-
-  @Test public void constructorShouldBePrivate() {
-    PrivateConstructorChecker.forClass(EmojiUtils.class)
-          .expectedTypeOfException(AssertionError.class)
-          .expectedExceptionMessage("No instances.")
-          .check();
   }
 
   @Test public void isOnlyEmojisEmpty() {

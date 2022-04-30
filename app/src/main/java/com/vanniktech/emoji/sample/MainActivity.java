@@ -1,6 +1,24 @@
+/*
+ * Copyright (C) 2016 - Niklas Baudy, Ruben Gees, Mario Đanić and contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 package com.vanniktech.emoji.sample;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +39,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vanniktech.emoji.EmojiEditText;
 import com.vanniktech.emoji.EmojiManager;
 import com.vanniktech.emoji.EmojiPopup;
+import com.vanniktech.emoji.facebook.FacebookEmojiProvider;
 import com.vanniktech.emoji.google.GoogleEmojiProvider;
 import com.vanniktech.emoji.googlecompat.GoogleCompatEmojiProvider;
 import com.vanniktech.emoji.ios.IosEmojiProvider;
@@ -31,7 +50,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 // We don't care about duplicated code in the sample.
-@SuppressWarnings("CPD-START") public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
   static final String TAG = "MainActivity";
 
   ChatAdapter chatAdapter;
@@ -61,7 +80,6 @@ import static android.view.View.VISIBLE;
     sendButton.setColorFilter(ContextCompat.getColor(this, R.color.emoji_icons), PorterDuff.Mode.SRC_IN);
 
     final CheckBox forceEmojisOnly = findViewById(R.id.main_activity_force_emojis_only);
-    forceEmojisOnly.setText("Force emojis only \uD83D\uDE18");
     forceEmojisOnly.setOnCheckedChangeListener((ignore, isChecked) -> {
       if (isChecked) {
         editText.clearFocus();
@@ -103,6 +121,10 @@ import static android.view.View.VISIBLE;
         emojiPopup.dismiss();
         MainDialog.show(this);
         return true;
+      case R.id.menuMainCustomView:
+        emojiPopup.dismiss();
+        startActivity(new Intent(this, CustomViewActivity.class));
+        return true;
       case R.id.menuMainVariantIos:
         EmojiManager.destroy();
         EmojiManager.install(new IosEmojiProvider());
@@ -116,6 +138,11 @@ import static android.view.View.VISIBLE;
       case R.id.menuMainTwitter:
         EmojiManager.destroy();
         EmojiManager.install(new TwitterEmojiProvider());
+        recreate();
+        return true;
+      case R.id.menuMainFacebook:
+        EmojiManager.destroy();
+        EmojiManager.install(new FacebookEmojiProvider());
         recreate();
         return true;
       case R.id.menuMainGoogleCompat:

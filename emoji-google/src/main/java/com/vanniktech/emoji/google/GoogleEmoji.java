@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2016 - Niklas Baudy, Ruben Gees, Mario Đanić and contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 package com.vanniktech.emoji.google;
 
 import android.content.Context;
@@ -18,7 +35,7 @@ public class GoogleEmoji extends Emoji {
   private static final int CACHE_SIZE = 100;
   private static final int SPRITE_SIZE = 64;
   private static final int SPRITE_SIZE_INC_BORDER = 66;
-  private static final int NUM_STRIPS = 51;
+  private static final int NUM_STRIPS = 56;
 
   private static final Object LOCK = new Object();
 
@@ -34,31 +51,33 @@ public class GoogleEmoji extends Emoji {
   private final int x;
   private final int y;
 
-  public GoogleEmoji(@NonNull final int[] codePoints, final int x, final int y, final boolean isDuplicate) {
-    super(codePoints, -1, isDuplicate);
+  public GoogleEmoji(@NonNull final int[] codePoints, @NonNull final String[] shortcodes, final int x, final int y,
+                     final boolean isDuplicate) {
+    super(codePoints, shortcodes, -1, isDuplicate);
 
     this.x = x;
     this.y = y;
   }
 
-  public GoogleEmoji(final int codePoint, final int x, final int y, final boolean isDuplicate) {
-    super(codePoint, -1, isDuplicate);
+  public GoogleEmoji(final int codePoint, @NonNull final String[] shortcodes, final int x, final int y,
+                     final boolean isDuplicate) {
+    super(codePoint, shortcodes, -1, isDuplicate);
 
     this.x = x;
     this.y = y;
   }
 
-  public GoogleEmoji(final int codePoint, final int x, final int y, final boolean isDuplicate,
-                     final Emoji... variants) {
-    super(codePoint, -1, isDuplicate, variants);
+  public GoogleEmoji(final int codePoint, @NonNull final String[] shortcodes, final int x, final int y,
+                     final boolean isDuplicate, final Emoji... variants) {
+    super(codePoint, shortcodes, -1, isDuplicate, variants);
 
     this.x = x;
     this.y = y;
   }
 
-  public GoogleEmoji(@NonNull final int[] codePoints, final int x, final int y, final boolean isDuplicate,
-                     final Emoji... variants) {
-    super(codePoints, -1, isDuplicate, variants);
+  public GoogleEmoji(@NonNull final int[] codePoints, @NonNull final String[] shortcodes, final int x, final int y,
+                     final boolean isDuplicate, final Emoji... variants) {
+    super(codePoints, shortcodes, -1, isDuplicate, variants);
 
     this.x = x;
     this.y = y;

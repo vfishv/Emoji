@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2016 - Niklas Baudy, Ruben Gees, Mario Đanić and contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 package com.vanniktech.emoji;
 
 import android.text.Spannable;
@@ -23,10 +40,10 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
   private EmojiProvider provider;
 
   @Before public void setUp() {
-    final Emoji emoji1 = new Emoji(new int[] { 0x1234 }, R.drawable.emoji_recent, false);
-    final Emoji emoji2 = new Emoji(new int[] { 0x4321 }, R.drawable.emoji_recent, false);
-    final Emoji emoji3 = new Emoji(new int[] { 0x5678 }, R.drawable.emoji_backspace, false);
-    final Emoji emoji4 = new Emoji(new int[] { 0x1234, 0x4321, 0x9999 }, R.drawable.emoji_recent, false);
+    final Emoji emoji1 = new Emoji(new int[] { 0x1234 }, new String[]{"test"}, R.drawable.emoji_recent, false);
+    final Emoji emoji2 = new Emoji(new int[] { 0x4321 }, new String[]{"test"}, R.drawable.emoji_recent, false);
+    final Emoji emoji3 = new Emoji(new int[] { 0x5678 }, new String[]{"test"}, R.drawable.emoji_backspace, false);
+    final Emoji emoji4 = new Emoji(new int[] { 0x1234, 0x4321, 0x9999 }, new String[]{"test"}, R.drawable.emoji_recent, false);
 
     provider = TestEmojiProvider.from(emoji1, emoji2, emoji3, emoji4);
   }
@@ -69,7 +86,7 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
     EmojiManager.install(provider);
 
     assertThat(EmojiManager.getInstance().findEmoji(new String(new int[] { 0x1234 }, 0, 1)))
-            .isEqualTo(new Emoji(new int[] { 0x1234 }, R.drawable.emoji_recent, false));
+            .isEqualTo(new Emoji(new int[] { 0x1234 }, new String[]{"test"}, R.drawable.emoji_recent, false));
   }
 
   @Test public void installMultiple() {
@@ -94,7 +111,7 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
     EmojiManager.install(provider);
 
     assertThat(EmojiManager.getInstance().findEmoji(new String(new int[]{0x5678}, 0, 1)))
-            .isEqualTo(new Emoji(new int[]{0x5678}, R.drawable.emoji_backspace, false));
+            .isEqualTo(new Emoji(new int[]{0x5678}, new String[]{"test"}, R.drawable.emoji_backspace, false));
   }
 
   @Test public void findEmojiEmpty() {
@@ -109,8 +126,8 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
     final String text = "te" + new String(new int[]{0x5678}, 0, 1)
             + "st" + new String(new int[]{0x1234}, 0, 1);
 
-    final EmojiRange firstExpectedRange = new EmojiRange(2, 3, new Emoji(new int[]{0x5678}, R.drawable.emoji_backspace, false));
-    final EmojiRange secondExpectedRange = new EmojiRange(5, 6, new Emoji(new int[]{0x1234}, R.drawable.emoji_recent, false));
+    final EmojiRange firstExpectedRange = new EmojiRange(2, 3, new Emoji(new int[]{0x5678}, new String[]{"test"}, R.drawable.emoji_backspace, false));
+    final EmojiRange secondExpectedRange = new EmojiRange(5, 6, new Emoji(new int[]{0x1234}, new String[]{"test"}, R.drawable.emoji_recent, false));
 
     assertThat(EmojiManager.getInstance().findAllEmojis(text))
             .containsExactly(firstExpectedRange, secondExpectedRange);
@@ -133,7 +150,7 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
 
     final Spannable text = new SpannableString(new String(new int[] { 0x1234 }, 0, 1));
 
-    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 44, 22);
+    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 44);
 
     assertThat(text.getSpans(0, text.length(), EmojiSpan.class)).hasSize(1);
   }
@@ -143,7 +160,7 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
 
     final Spannable text = new SpannableString("test" + new String(new int[] { 0x1234 }, 0, 1) + "abc");
 
-    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22, 22);
+    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22);
 
     assertThat(text.getSpans(0, text.length(), EmojiSpan.class)).hasSize(1);
   }
@@ -153,7 +170,7 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
 
     final Spannable text = new SpannableString(new String(new int[] { 0x1234 }, 0, 1) + new String(new int[] { 0x5678 }, 0, 1));
 
-    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22, 22);
+    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22);
 
     assertThat(text.getSpans(0, text.length(), EmojiSpan.class)).hasSize(2);
   }
@@ -163,7 +180,7 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
 
     final Spannable text = new SpannableString("abc" + new String(new int[] { 0x1234 }, 0, 1) + "cba" + new String(new int[] { 0x5678 }, 0, 1) + "xyz");
 
-    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22, 22);
+    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22);
 
     assertThat(text.getSpans(0, text.length(), EmojiSpan.class)).hasSize(2);
   }
@@ -173,7 +190,7 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
 
     final Spannable text = new SpannableString(new String(new int[] { 0x1234, 0x4321 }, 0, 1));
 
-    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 11, 22);
+    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 11);
 
     assertThat(text.getSpans(0, text.length(), EmojiSpan.class)).hasSize(1);
   }
@@ -183,7 +200,7 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
 
     final Spannable text = new SpannableString(new String(new int[] { 0x1234, 0x4321, 0x9999 }, 0, 1));
 
-    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22, 22);
+    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22);
 
     assertThat(text.getSpans(0, text.length(), EmojiSpan.class)).hasSize(1);
   }
@@ -193,7 +210,7 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
 
     final Spannable text = new SpannableString("");
 
-    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22, 22);
+    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22);
 
     assertThat(text.getSpans(0, text.length(), EmojiSpan.class)).hasSize(0);
   }
@@ -203,7 +220,7 @@ import static org.assertj.core.api.Java6Assertions.assertThatThrownBy;
 
     final Spannable text = new SpannableString("abcdefg");
 
-    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22, 22);
+    EmojiManager.getInstance().replaceWithImages(RuntimeEnvironment.application, text, 22);
 
     assertThat(text.getSpans(0, text.length(), EmojiSpan.class)).hasSize(0);
   }

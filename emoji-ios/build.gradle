@@ -4,8 +4,8 @@ android {
   compileSdkVersion rootProject.ext.compileSdkVersion as int
 
   compileOptions {
-    sourceCompatibility JavaVersion.VERSION_1_7
-    targetCompatibility JavaVersion.VERSION_1_7
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
   }
 
   defaultConfig {
@@ -17,6 +17,11 @@ android {
 
 dependencies {
   api project(':emoji')
+}
+
+dependencies {
+  testImplementation rootProject.ext.testing.junit
+  testImplementation rootProject.ext.testing.assertJ
 }
 
 apply plugin: "com.vanniktech.maven.publish"

@@ -1,7 +1,51 @@
 # Change Log
 
-Version 0.7.0 *(In development)*
+Version 0.8.0 *(In development)*
 --------------------------------
+
+Version 0.7.0 *(2020-08-19)*
+----------------------------
+
+- Fix hardcoded text not displaying Emojis correctly [\#462](https://github.com/vanniktech/Emoji/pull/462) ([vanniktech](https://github.com/vanniktech))
+- Add EmojiCheckbox. [\#460](https://github.com/vanniktech/Emoji/pull/460) ([vanniktech](https://github.com/vanniktech))
+- Add duplicate support for Emoji start with variant selector. [\#456](https://github.com/vanniktech/Emoji/pull/456) ([vanniktech](https://github.com/vanniktech))
+- Add license headers to JS/KT/Java files. [\#455](https://github.com/vanniktech/Emoji/pull/455) ([vanniktech](https://github.com/vanniktech))
+- Add 3-arg-view constructors. [\#454](https://github.com/vanniktech/Emoji/pull/454) ([vanniktech](https://github.com/vanniktech))
+- EmojiPopUp: RequestApplyInsets [\#452](https://github.com/vanniktech/Emoji/pull/452) ([ghshenavar](https://github.com/ghshenavar))
+- Call EmojiPopup\#start\(\) when rootView is already laid out. [\#448](https://github.com/vanniktech/Emoji/pull/448) ([vanniktech](https://github.com/vanniktech))
+- Add shortcodes to emojis [\#446](https://github.com/vanniktech/Emoji/pull/446) ([rubengees](https://github.com/rubengees))
+- Unify code across widgets. [\#443](https://github.com/vanniktech/Emoji/pull/443) ([vanniktech](https://github.com/vanniktech))
+- Add SingleEmojiTrait to force single \(replaceable\) on an EditText [\#442](https://github.com/vanniktech/Emoji/pull/442) ([vanniktech](https://github.com/vanniktech))
+- Fix render issue when isInEditMode\(\) [\#435](https://github.com/vanniktech/Emoji/pull/435) ([Namolem](https://github.com/Namolem))
+- Update generator for Unicode 12.1 [\#426](https://github.com/vanniktech/Emoji/pull/426) ([rubengees](https://github.com/rubengees))
+- Allow to pass in selectedIconColor. [\#425](https://github.com/vanniktech/Emoji/pull/425) ([vanniktech](https://github.com/vanniktech))
+- Fix emoji keyboard in samples [\#411](https://github.com/vanniktech/Emoji/pull/411) ([mario](https://github.com/mario))
+- Delay opening of the popup to correctly align with window insets. Fixes \#400 [\#410](https://github.com/vanniktech/Emoji/pull/410) ([mario](https://github.com/mario))
+- Add sample with custom view. [\#409](https://github.com/vanniktech/Emoji/pull/409) ([vanniktech](https://github.com/vanniktech))
+- Fix set popup window height method [\#402](https://github.com/vanniktech/Emoji/pull/402) ([mario](https://github.com/mario))
+- Automatically call start and stop when attaching/detaching EmojiPopup [\#397](https://github.com/vanniktech/Emoji/pull/397) ([rubengees](https://github.com/rubengees))
+- Add MaterialEmojiLayoutFactory. [\#396](https://github.com/vanniktech/Emoji/pull/396) ([vanniktech](https://github.com/vanniktech))
+- Add EmojiLayoutFactory. [\#395](https://github.com/vanniktech/Emoji/pull/395) ([vanniktech](https://github.com/vanniktech))
+- Add emoji-material module for material bindings. [\#394](https://github.com/vanniktech/Emoji/pull/394) ([vanniktech](https://github.com/vanniktech))
+- Fix emoji only filter [\#393](https://github.com/vanniktech/Emoji/pull/393) ([mario](https://github.com/mario))
+- Fix custom keyboard height [\#392](https://github.com/vanniktech/Emoji/pull/392) ([mario](https://github.com/mario))
+- Fix keyboard calculation for API v21+ by introducing start/stop into EmojiPopup [\#389](https://github.com/vanniktech/Emoji/pull/389) ([mario](https://github.com/mario))
+- Support textAllCaps option. Fixes \#361 [\#383](https://github.com/vanniktech/Emoji/pull/383) ([mario](https://github.com/mario))
+- Don't use bundled AppCompat emojis. Instead download the font. [\#380](https://github.com/vanniktech/Emoji/pull/380) ([vanniktech](https://github.com/vanniktech))
+- Support use case where only Emoji Dialog should be shown. [\#378](https://github.com/vanniktech/Emoji/pull/378) ([vanniktech](https://github.com/vanniktech))
+- Ship OnlyEmojisInputFilter & MaximalNumberOfEmojisInputFilter. [\#377](https://github.com/vanniktech/Emoji/pull/377) ([vanniktech](https://github.com/vanniktech))
+- Update dependencies. [\#376](https://github.com/vanniktech/Emoji/pull/376) ([vanniktech](https://github.com/vanniktech))
+- Allow popup height to be changed with a setter [\#373](https://github.com/vanniktech/Emoji/pull/373) ([VitalyKuznetsov](https://github.com/VitalyKuznetsov))
+- Fix memory leak in EmojiPopup [\#370](https://github.com/vanniktech/Emoji/pull/370) ([rubengees](https://github.com/rubengees))
+- Optimise the category png's to save some space [\#367](https://github.com/vanniktech/Emoji/pull/367) ([rocboronat](https://github.com/rocboronat))
+- Make EmojiManager's initialization methods synchronized [\#365](https://github.com/vanniktech/Emoji/pull/365) ([rubengees](https://github.com/rubengees))
+- Change default Keyboard + ViewPager animation. [\#353](https://github.com/vanniktech/Emoji/pull/353) ([vanniktech](https://github.com/vanniktech))
+- Content descriptors added for supporting talkback accessibility [\#352](https://github.com/vanniktech/Emoji/pull/352) ([AlexMavDev](https://github.com/AlexMavDev))
+- Remove EmojiOne [\#338](https://github.com/vanniktech/Emoji/pull/338) ([rubengees](https://github.com/rubengees))
+- Update everything to AndroidX [\#335](https://github.com/vanniktech/Emoji/pull/335) ([mario](https://github.com/mario))
+- Update README license [\#332](https://github.com/vanniktech/Emoji/pull/332) ([mario](https://github.com/mario))
+
+I want to thank each and every contributor. Special thanks goes out to @mario & @rubengees.
 
 Version 0.6.0 *(2019-02-15)*
 ----------------------------

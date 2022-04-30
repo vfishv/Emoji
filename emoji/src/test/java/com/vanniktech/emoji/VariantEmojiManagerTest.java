@@ -1,3 +1,20 @@
+/*
+ * Copyright (C) 2016 - Niklas Baudy, Ruben Gees, Mario Đanić and contributors
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 package com.vanniktech.emoji;
 
 import com.vanniktech.emoji.emoji.Emoji;
@@ -26,11 +43,11 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
   @Before public void setUp() {
     variantEmojiManager = new VariantEmojiManager(RuntimeEnvironment.application);
 
-    emoji = new Emoji(0x1f437, R.drawable.emoji_recent, false);
-    variant1 = new Emoji(0x1f55b, R.drawable.emoji_recent, false);
-    variant2 = new Emoji(0x1f55c, R.drawable.emoji_recent, false);
-    variant3 = new Emoji(0x1f55d, R.drawable.emoji_recent, false);
-    base = new Emoji(0x1f55a, R.drawable.emoji_recent, false, variant1, variant2, variant3);
+    emoji = new Emoji(0x1f437, new String[]{"test"}, R.drawable.emoji_recent, false);
+    variant1 = new Emoji(0x1f55b, new String[]{"test"}, R.drawable.emoji_recent, false);
+    variant2 = new Emoji(0x1f55c, new String[]{"test"}, R.drawable.emoji_recent, false);
+    variant3 = new Emoji(0x1f55d, new String[]{"test"}, R.drawable.emoji_recent, false);
+    base = new Emoji(0x1f55a, new String[]{"test"}, R.drawable.emoji_recent, false, variant1, variant2, variant3);
   }
 
   @Test public void getVariantDefault() {
