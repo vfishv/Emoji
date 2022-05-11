@@ -249,12 +249,12 @@ maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 And **one** of these to your dependencies:
 
 ```groovy
-implementation "com.vanniktech:emoji:0.11.0-SNAPSHOT"
-implementation "com.vanniktech:emoji-ios:0.11.0-SNAPSHOT"
-implementation "com.vanniktech:emoji-google:0.11.0-SNAPSHOT"
-implementation "com.vanniktech:emoji-twitter:0.11.0-SNAPSHOT"
-implementation "com.vanniktech:emoji-facebook:0.11.0-SNAPSHOT"
-implementation "com.vanniktech:emoji-material:0.11.0-SNAPSHOT"
+implementation "com.vanniktech:emoji:0.12.0-SNAPSHOT"
+implementation "com.vanniktech:emoji-ios:0.12.0-SNAPSHOT"
+implementation "com.vanniktech:emoji-google:0.12.0-SNAPSHOT"
+implementation "com.vanniktech:emoji-twitter:0.12.0-SNAPSHOT"
+implementation "com.vanniktech:emoji-facebook:0.12.0-SNAPSHOT"
+implementation "com.vanniktech:emoji-material:0.12.0-SNAPSHOT"
 ```
 
 # Proguard
