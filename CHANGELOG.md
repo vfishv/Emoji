@@ -1,7 +1,19 @@
 # Change Log
 
-Version 0.11.0 *(In development)*
----------------------------------
+Version 0.11.0 *(2022-05-11)*
+-----------------------------
+
+- Mark almost all resources as private. [\#783](https://github.com/vanniktech/Emoji/pull/783) ([vanniktech](https://github.com/vanniktech))
+- Translate category names into German. [\#782](https://github.com/vanniktech/Emoji/pull/782) ([vanniktech](https://github.com/vanniktech))
+- Stricter android resource prefixes. [\#781](https://github.com/vanniktech/Emoji/pull/781) ([vanniktech](https://github.com/vanniktech))
+- EmojiRange: Replace start & end with IntRange. [\#779](https://github.com/vanniktech/Emoji/pull/779) ([vanniktech](https://github.com/vanniktech))
+- EmojiPopup: Hide EmojiResultReceiver.Receiver usage. [\#778](https://github.com/vanniktech/Emoji/pull/778) ([vanniktech](https://github.com/vanniktech))
+- EmojiReplacer interface is now a fun interface. [\#777](https://github.com/vanniktech/Emoji/pull/777) ([vanniktech](https://github.com/vanniktech))
+- Ignore whitespace when using force single emoji & searching for an Emoji. [\#776](https://github.com/vanniktech/Emoji/pull/776) ([vanniktech](https://github.com/vanniktech))
+- EditText\#input gets addWhitespace parameter. [\#775](https://github.com/vanniktech/Emoji/pull/775) ([vanniktech](https://github.com/vanniktech))
+- Use Emojis name when calling extension functions from Java. [\#774](https://github.com/vanniktech/Emoji/pull/774) ([vanniktech](https://github.com/vanniktech))
+- Remove deprecated methods. [\#773](https://github.com/vanniktech/Emoji/pull/773) ([vanniktech](https://github.com/vanniktech))
+- Add metalava. [\#680](https://github.com/vanniktech/Emoji/pull/680) ([vanniktech](https://github.com/vanniktech))
 
 Version 0.10.0 *(2022-05-11)*
 -----------------------------
