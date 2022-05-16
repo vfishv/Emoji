@@ -14,7 +14,7 @@ There's also a [`EmojiLayoutFactory`](emoji/src/main/java/com/vanniktech/emoji/E
 Material Design Library bindings can be included via:
 
 ```groovy
-implementation "com.vanniktech:emoji-material:0.11.0"
+implementation "com.vanniktech:emoji-material:0.12.0"
 ```
 
 - [`EmojiMaterialButton`](emoji-material/src/main/java/com/vanniktech/emoji/material/EmojiMaterialButton.kt)
@@ -33,7 +33,7 @@ The library has 4 different providers to choose from ([iOS](#ios-emojis), [Googl
 For getting the above iOS Emojis simply add the dependency and code below.
 
 ```groovy
-implementation "com.vanniktech:emoji-ios:0.11.0"
+implementation "com.vanniktech:emoji-ios:0.12.0"
 ```
 
 And install the provider in your application class.
@@ -49,7 +49,7 @@ EmojiManager.install(IosEmojiProvider());
 For getting the above Google Emojis simply add the dependency and code below.
 
 ```groovy
-implementation "com.vanniktech:emoji-google:0.11.0"
+implementation "com.vanniktech:emoji-google:0.12.0"
 ```
 
 And install the provider in your application class.
@@ -65,7 +65,7 @@ EmojiManager.install(GoogleEmojiProvider());
 For getting the above Facebook Emojis simply add the dependency and code below.
 
 ```groovy
-implementation "com.vanniktech:emoji-facebook:0.11.0"
+implementation "com.vanniktech:emoji-facebook:0.12.0"
 ```
 
 And install the provider in your application class.
@@ -81,7 +81,7 @@ EmojiManager.install(FacebookEmojiProvider());
 For getting the above Twitter Emojis simply add the dependency and code below.
 
 ```groovy
-implementation "com.vanniktech:emoji-twitter:0.11.0"
+implementation "com.vanniktech:emoji-twitter:0.12.0"
 ```
 
 And install the provider in your application class.
@@ -97,7 +97,7 @@ If you want to display your own Emojis you can create your own implementation of
 All of the core API lays in `emoji`, which is being pulled in automatically by the provided implementations:
 
 ```groovy
-implementation "com.vanniktech:emoji:0.11.0"
+implementation "com.vanniktech:emoji:0.12.0"
 ```
 
 ## Set up
