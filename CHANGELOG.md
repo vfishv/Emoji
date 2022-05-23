@@ -1,7 +1,12 @@
 # Change Log
 
-Version 0.13.0 *(In development)*
----------------------------------
+Version 0.13.0 *(2022-05-23)*
+-----------------------------
+
+- Use EmojiTheming on internal ViewPager. [\#793](https://github.com/vanniktech/Emoji/pull/793) ([vanniktech](https://github.com/vanniktech))
+- Sample: Showcase theming + fix edge case when searching for an Emoji which hasn't been downloaded and shown as a glyph. [\#792](https://github.com/vanniktech/Emoji/pull/792) ([vanniktech](https://github.com/vanniktech))
+- Use EmojiTheming on internal RecyclerViews. [\#791](https://github.com/vanniktech/Emoji/pull/791) ([vanniktech](https://github.com/vanniktech))
+- Add Dependency Guard plugin. [\#790](https://github.com/vanniktech/Emoji/pull/790) ([vanniktech](https://github.com/vanniktech))
 
 Version 0.12.0 *(2022-05-16)*
 -----------------------------
