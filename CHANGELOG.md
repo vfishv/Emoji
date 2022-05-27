@@ -1,7 +1,51 @@
 # Change Log
 
-Version 0.14.0 *(In development)*
----------------------------------
+Version 0.14.0 *(2022-05-27)*
+-----------------------------
+
+- Multiplatform: JVM example. [\#836](https://github.com/vanniktech/Emoji/pull/836) ([vanniktech](https://github.com/vanniktech))
+- Nuke PMD configuration. [\#835](https://github.com/vanniktech/Emoji/pull/835) ([vanniktech](https://github.com/vanniktech))
+- Action: First do jvmTest, ktlint & testDebug & then build. [\#833](https://github.com/vanniktech/Emoji/pull/833) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move emoji-ios tests into commonTest. [\#832](https://github.com/vanniktech/Emoji/pull/832) ([vanniktech](https://github.com/vanniktech))
+- Android: Generate list with sheets and stop using Resource reflection. [\#831](https://github.com/vanniktech/Emoji/pull/831) ([vanniktech](https://github.com/vanniktech))
+- Breaking: Rename EmojiDrawableProvider to EmojiAndroidProvider. [\#830](https://github.com/vanniktech/Emoji/pull/830) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Generate EmojiProviders into jvmMain. [\#829](https://github.com/vanniktech/Emoji/pull/829) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: EmojiCategory implementations into commonMain. [\#828](https://github.com/vanniktech/Emoji/pull/828) ([vanniktech](https://github.com/vanniktech))
+- Breaking: Use EmojiDrawableProvider\#getIcon\(EmojiCategory\) instead of EmojiCategory\#icon for proper Multiplatform support. [\#827](https://github.com/vanniktech/Emoji/pull/827) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move most of the tests into commonTest. [\#826](https://github.com/vanniktech/Emoji/pull/826) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move SearchEmojiManager into commonMain. [\#825](https://github.com/vanniktech/Emoji/pull/825) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move CharSequence extension methods into commonMain. [\#824](https://github.com/vanniktech/Emoji/pull/824) ([vanniktech](https://github.com/vanniktech))
+- Breaking: Use EmojiCategory\#categoryNames Map\<String, String\> instead of Android Resource for proper Multiplatform support. [\#823](https://github.com/vanniktech/Emoji/pull/823) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move EmojiManager into commonMain. [\#822](https://github.com/vanniktech/Emoji/pull/822) ([vanniktech](https://github.com/vanniktech))
+- Breaking: Extract EmojiManager\#replaceWithImages as an extension function. [\#821](https://github.com/vanniktech/Emoji/pull/821) ([vanniktech](https://github.com/vanniktech))
+- Move EmojiDrawableProvider\#release\(\) into EmojiProvider. [\#820](https://github.com/vanniktech/Emoji/pull/820) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move EmojiCategory into commonMain. [\#819](https://github.com/vanniktech/Emoji/pull/819) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Add JVM target. [\#818](https://github.com/vanniktech/Emoji/pull/818) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move EmojiProvider into commonMain. [\#817](https://github.com/vanniktech/Emoji/pull/817) ([vanniktech](https://github.com/vanniktech))
+- Breaking: Rename EmojiProvider\#destroy\(\) to EmojiProvider\#release\(\). [\#816](https://github.com/vanniktech/Emoji/pull/816) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move Chunks of generated Categories into commonMain. [\#815](https://github.com/vanniktech/Emoji/pull/815) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move NoSearchEmoji into commonMain. [\#814](https://github.com/vanniktech/Emoji/pull/814) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move SearchEmoji into commonMain. [\#813](https://github.com/vanniktech/Emoji/pull/813) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move EmptyEmojiTrait into commonMain. [\#812](https://github.com/vanniktech/Emoji/pull/812) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move EmojiInformation into commonMain. [\#811](https://github.com/vanniktech/Emoji/pull/811) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move NoRecentEmoji into commonMain. [\#810](https://github.com/vanniktech/Emoji/pull/810) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move NoVariantEmoji into commonMain. [\#809](https://github.com/vanniktech/Emoji/pull/809) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move EmojiTraitable into commonMain. [\#808](https://github.com/vanniktech/Emoji/pull/808) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move RecentEmoji into commonMain. [\#807](https://github.com/vanniktech/Emoji/pull/807) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move SearchEmojiResult into commonMain. [\#806](https://github.com/vanniktech/Emoji/pull/806) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move EmojiTrait into commonMain. [\#805](https://github.com/vanniktech/Emoji/pull/805) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move VariantEmoji into commonMain. [\#804](https://github.com/vanniktech/Emoji/pull/804) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: EmojiAndroidCategory interface to start preparing EmojiCategory for commonMain. [\#803](https://github.com/vanniktech/Emoji/pull/803) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move EmojiRange into commonMain. [\#802](https://github.com/vanniktech/Emoji/pull/802) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move Emoji implementations into commonMain. [\#801](https://github.com/vanniktech/Emoji/pull/801) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move EmojiTrait into commonMain. [\#800](https://github.com/vanniktech/Emoji/pull/800) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Move Emoji interface to commonMain. [\#799](https://github.com/vanniktech/Emoji/pull/799) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: EmojiDrawableProvider interface to start preparing Emoji for commonMain. [\#798](https://github.com/vanniktech/Emoji/pull/798) ([vanniktech](https://github.com/vanniktech))
+- Generator: Update directories & don't delete values directory. [\#797](https://github.com/vanniktech/Emoji/pull/797) ([vanniktech](https://github.com/vanniktech))
+- Multiplatform: Parcelize support for Android. [\#796](https://github.com/vanniktech/Emoji/pull/796) ([vanniktech](https://github.com/vanniktech))
+- Tests: Do full exception format logging. [\#795](https://github.com/vanniktech/Emoji/pull/795) ([vanniktech](https://github.com/vanniktech))
+- Bug fix: Recent Emojis were not removing last recent Emoji. [\#794](https://github.com/vanniktech/Emoji/pull/794) ([vanniktech](https://github.com/vanniktech))
+- Start with Kotlin Multiplatform \(android only for now\) [\#780](https://github.com/vanniktech/Emoji/pull/780) ([vanniktech](https://github.com/vanniktech))
 
 Version 0.13.0 *(2022-05-23)*
 -----------------------------

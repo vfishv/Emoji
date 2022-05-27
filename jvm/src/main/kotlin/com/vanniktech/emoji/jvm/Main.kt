@@ -6,8 +6,7 @@ import com.vanniktech.emoji.ios.IosEmojiProvider
 import com.vanniktech.emoji.search.SearchEmojiManager
 
 fun main() {
-  val emojiProvider = IosEmojiProvider()
-  EmojiManager.install(emojiProvider)
+  EmojiManager.install(IosEmojiProvider())
 
   val emojiString = """Hello from JVM ❤️💚💙"""
   println("\nGetting emoji information from $emojiString:")

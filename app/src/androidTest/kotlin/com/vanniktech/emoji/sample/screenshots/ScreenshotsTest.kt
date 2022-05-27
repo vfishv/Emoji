@@ -47,6 +47,10 @@ import tools.fastlane.screengrab.locale.LocaleTestRule
     start(Variant.GOOGLE)
   }
 
+  @Test fun takeScreenShotsEmojiGoogleCompat() {
+    start(Variant.GOOGLE_COMPAT)
+  }
+
   @Test fun takeScreenShotsEmojiTwitter() {
     start(Variant.TWITTER)
   }
@@ -59,6 +63,7 @@ import tools.fastlane.screengrab.locale.LocaleTestRule
     val title: String,
   ) {
     GOOGLE("Google"),
+    GOOGLE_COMPAT("Google Compat"),
     IOS("iOS"),
     TWITTER("Twitter"),
     FACEBOOK("Facebook"),
@@ -91,9 +96,8 @@ import tools.fastlane.screengrab.locale.LocaleTestRule
     Screengrab.screenshot(name + "_2")
 
     // Third text.
-    onView(withId(R.id.chatSend)).perform(click())
-    val secondEmojis = intArrayOf(0x1F98B, 0x1F41E, 0x1F41D, 0x1F422, 0x1F432, 0x1F683, 0x1F37B, 0x1F943)
-    onView(withId(R.id.chatEditText)).perform(appendText("I don't know " + String(secondEmojis, 0, secondEmojis.size)))
+    onView(withId(R.id.searchInPlace)).perform(click())
+    onView(withId(R.id.chatEditText)).perform(appendText(":swim"))
     Thread.sleep(500) // Espresso does not synchronize it right away.
     Screengrab.screenshot(name + "_3")
   }
