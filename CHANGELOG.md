@@ -1,10 +1,14 @@
 # Change Log
 
-Version 0.15.0 *(In development)*
----------------------------------
+Version 0.15.0 *(2022-05-28)*
+-----------------------------
+
+- Multiplatform: Fix Android publishing. [\#837](https://github.com/vanniktech/Emoji/pull/837) ([vanniktech](https://github.com/vanniktech))
 
 Version 0.14.0 *(2022-05-27)*
 -----------------------------
+
+There was a problem publishing Android artifacts with 0.14.0, please update directly to 0.15.0
 
 - Multiplatform: JVM example. [\#836](https://github.com/vanniktech/Emoji/pull/836) ([vanniktech](https://github.com/vanniktech))
 - Nuke PMD configuration. [\#835](https://github.com/vanniktech/Emoji/pull/835) ([vanniktech](https://github.com/vanniktech))
