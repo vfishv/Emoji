@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
-  <issue id="ObsoleteLintCustomCheck" severity="ignore"/>
-  <issue id="GradleDependency" severity="ignore"/>
+  <issue id="SyntheticAccessor" severity="error"/>
+  <issue id="ConvertToWebp">
+    <ignore regexp="_sheet_.*.png"/>
+    <ignore regexp="emoji_.*_category_.*.png"/>
+    <ignore regexp="ic_launcher.png"/>
+  </issue>
+
+  <!-- View Binding bugs. -->
+  <issue id="UnusedIds">
+    <ignore regexp=".*"/>
+  </issue>
 </lint>

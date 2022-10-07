@@ -12,15 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
+
 package com.vanniktech.emoji.sample
 
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.PorterDuff
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater.Factory2
 import android.view.MenuItem
@@ -38,11 +37,15 @@ import com.vanniktech.emoji.EmojiPopup
 import com.vanniktech.emoji.facebook.FacebookEmojiProvider
 import com.vanniktech.emoji.google.GoogleEmojiProvider
 import com.vanniktech.emoji.googlecompat.GoogleCompatEmojiProvider
+import com.vanniktech.emoji.installDisableKeyboardInput
+import com.vanniktech.emoji.installForceSingleEmoji
+import com.vanniktech.emoji.installSearchInPlace
 import com.vanniktech.emoji.ios.IosEmojiProvider
 import com.vanniktech.emoji.material.MaterialEmojiLayoutFactory
 import com.vanniktech.emoji.sample.databinding.ActivityMainBinding
 import com.vanniktech.emoji.traits.EmojiTrait
 import com.vanniktech.emoji.twitter.TwitterEmojiProvider
+import timber.log.Timber
 
 // We don't care about duplicated code in the sample.
 class MainActivity : AppCompatActivity() {
@@ -52,6 +55,7 @@ class MainActivity : AppCompatActivity() {
   private var emojiCompat: EmojiCompat? = null
   private var searchInPlaceEmojiTrait: EmojiTrait? = null
   private var disableKeyboardInputEmojiTrait: EmojiTrait? = null
+  private var forceSingleEmojiTrait: EmojiTrait? = null
 
   @SuppressLint("SetTextI18n")
   override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,26 +64,41 @@ class MainActivity : AppCompatActivity() {
 
     binding = ActivityMainBinding.inflate(layoutInflater)
     setContentView(binding.root)
+    setSupportActionBar(binding.toolbar)
+
     chatAdapter = ChatAdapter()
     setUpShowcaseButtons()
 
-    emojiPopup = EmojiPopup.Builder.fromRootView(binding.rootView)
-      .setOnEmojiBackspaceClickListener { Log.d(TAG, "Clicked on Backspace") }
-      .setOnEmojiClickListener { emoji -> Log.d(TAG, "Clicked on Emoji " + emoji.unicode) }
-      .setOnEmojiPopupShownListener { binding.chatEmoji.setImageResource(R.drawable.ic_keyboard) }
-      .setOnSoftKeyboardOpenListener { px -> Log.d(TAG, "Opened soft keyboard with height $px") }
-      .setOnEmojiPopupDismissListener { binding.chatEmoji.setImageResource(R.drawable.emoji_ios_category_smileysandpeople) }
-      .setOnSoftKeyboardCloseListener { Log.d(TAG, "Closed soft keyboard") }
-      .setKeyboardAnimationStyle(R.style.emoji_fade_animation_style)
-      .setPageTransformer(PageTransformer())
-      // .setRecentEmoji(NoRecentEmoji.INSTANCE) // Uncomment this to hide recent emojis.
-      .build(binding.chatEditText)
+    emojiPopup = EmojiPopup(
+      rootView = binding.rootView,
+      editText = binding.chatEditText,
+      onEmojiBackspaceClickListener = { Timber.d(TAG, "Clicked on Backspace") },
+      onEmojiClickListener = { emoji -> Timber.d(TAG, "Clicked on Emoji " + emoji.unicode) },
+      onEmojiPopupShownListener = { binding.chatEmoji.setImageResource(R.drawable.ic_keyboard) },
+      onSoftKeyboardOpenListener = { px -> Timber.d(TAG, "Opened soft keyboard with height $px") },
+      onEmojiPopupDismissListener = { binding.chatEmoji.setImageResource(R.drawable.ic_emojis) },
+      onSoftKeyboardCloseListener = { Timber.d(TAG, "Closed soft keyboard") },
+      keyboardAnimationStyle = R.style.emoji_fade_animation_style,
+//      theming = com.vanniktech.emoji.EmojiTheming( // Uncomment this to use runtime theming.
+//        backgroundColor = android.graphics.Color.BLACK,
+//        primaryColor = android.graphics.Color.BLUE,
+//        secondaryColor = android.graphics.Color.YELLOW,
+//        dividerColor = android.graphics.Color.GRAY,
+//        textColor = android.graphics.Color.WHITE,
+//        textSecondaryColor = android.graphics.Color.GRAY,
+//      ),
+      pageTransformer = PageTransformer(),
+//      variantEmoji = NoVariantEmoji, // Uncomment this to hide variant emojis.
+//      searchEmoji = NoSearchEmoji, // Uncomment this to hide search emojis.
+//      recentEmoji = NoRecentEmoji, // Uncomment this to hide recent emojis.
+    )
 
     binding.chatSend.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
     binding.chatEmoji.setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN)
-    binding.forceEmojisOnly.setOnCheckedChangeListener { _, isChecked: Boolean ->
+    binding.disableKeyboardInput.setOnCheckedChangeListener { _, isChecked: Boolean ->
       if (isChecked) {
-        binding.chatEditText.clearFocus()
+        binding.searchInPlace.isChecked = false
+
         binding.chatEmoji.visibility = View.GONE
         disableKeyboardInputEmojiTrait = binding.chatEditText.installDisableKeyboardInput(emojiPopup)
       } else {
@@ -87,13 +106,30 @@ class MainActivity : AppCompatActivity() {
         disableKeyboardInputEmojiTrait?.uninstall()
       }
     }
-    binding.inPlaceEmojis.setOnCheckedChangeListener { _, isChecked: Boolean ->
+    binding.forceSingleEmoji.setOnCheckedChangeListener { _, isChecked: Boolean ->
       if (isChecked) {
+        binding.searchInPlace.isChecked = false
+
+        if (!binding.disableKeyboardInput.isChecked) {
+          binding.disableKeyboardInput.isChecked = true
+        }
+
+        forceSingleEmojiTrait = binding.chatEditText.installForceSingleEmoji()
+      } else {
+        forceSingleEmojiTrait?.uninstall()
+      }
+    }
+    binding.searchInPlace.setOnCheckedChangeListener { _, isChecked: Boolean ->
+      if (isChecked) {
+        binding.disableKeyboardInput.isChecked = false
+        binding.forceSingleEmoji.isChecked = false
+
         searchInPlaceEmojiTrait = binding.chatEditText.installSearchInPlace(emojiPopup)
       } else {
         searchInPlaceEmojiTrait?.uninstall()
       }
     }
+
     binding.chatEmoji.setOnClickListener { emojiPopup.toggle() }
     binding.chatSend.setOnClickListener {
       val text = binding.chatEditText.text.toString().trim { it <= ' ' }
@@ -160,8 +196,8 @@ class MainActivity : AppCompatActivity() {
                     "com.google.android.gms",
                     "Noto Color Emoji Compat",
                     R.array.com_google_android_gms_fonts_certs,
-                  )
-                ).setReplaceAll(true)
+                  ),
+                ).setReplaceAll(true),
               )
             }
             EmojiManager.destroy()

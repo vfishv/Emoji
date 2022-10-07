@@ -1,0 +1,23 @@
+plugins {
+  id("com.dropbox.dependency-guard")
+}
+
+apply plugin: "kotlin"
+apply plugin: "application"
+
+dependencyGuard {
+  configuration("runtimeClasspath")
+}
+
+mainClassName = "com.vanniktech.emoji.jvm.MainKt"
+
+defaultTasks("run")
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_11
+  targetCompatibility = JavaVersion.VERSION_11
+}
+
+dependencies {
+  implementation(project(":emoji-ios"))
+}

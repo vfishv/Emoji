@@ -8,11 +8,18 @@
     android:orientation="vertical"
     tools:context=".MainActivity"
     >
+  <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      style="@style/Widget.MaterialComponents.Toolbar.Primary"
+      />
   <com.vanniktech.emoji.material.EmojiMaterialButton
       android:id="@+id/button"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
       />
   <!-- This one gets automatically replaced into a EmojiMaterialButton as we're using a MaterialEmojiLayoutFactory. -->
   <Button
@@ -20,7 +27,7 @@
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="16dp"
-      android:text="Chat in Dialog 💬"
+      android:text="Emojis in Dialog 💬"
       tools:ignore="HardcodedText"
       />
   <!-- This one gets automatically replaced into a EmojiMaterialButton as we're using a MaterialEmojiLayoutFactory. -->
@@ -42,19 +49,27 @@
       tools:ignore="HardcodedText"
       />
   <com.vanniktech.emoji.EmojiCheckbox
-      android:id="@+id/force_emojis_only"
+      android:id="@+id/disableKeyboardInput"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="12dp"
-      android:text="In chat force Emojis only 🌱🔥"
+      android:text="Disable keyboard input 🎹"
       tools:ignore="HardcodedText"
       />
   <com.vanniktech.emoji.EmojiCheckbox
-      android:id="@+id/in_place_emojis"
+      android:id="@+id/forceSingleEmoji"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:layout_marginStart="12dp"
-      android:text="Allow searching for emoji with :query"
+      android:text="Force single Emoji 🔥"
+      tools:ignore="HardcodedText"
+      />
+  <com.vanniktech.emoji.EmojiCheckbox
+      android:id="@+id/searchInPlace"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="12dp"
+      android:text="Search in place with :query 🔎"
       tools:ignore="HardcodedText"
       />
   <androidx.recyclerview.widget.RecyclerView
@@ -79,7 +94,7 @@
         android:background="?attr/selectableItemBackgroundBorderless"
         android:padding="12dp"
         android:scaleType="centerCrop"
-        app:srcCompat="@drawable/emoji_ios_category_smileysandpeople"
+        app:srcCompat="@drawable/ic_emojis"
         tools:ignore="ContentDescription"
         />
     <com.vanniktech.emoji.EmojiEditText

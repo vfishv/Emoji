@@ -12,19 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *
  */
 
-const commandLineArgs = require("command-line-args");
-const fs = require("fs-extra");
-const stable = require("stable");
-const chunk = require("lodash.chunk");
-const template = require("lodash.template");
-const imagemin = require("imagemin");
-const imageminZopfli = require("imagemin-zopfli");
-const imageminPngquant = require("imagemin-pngquant");
-const emojiData = require("./node_modules/emoji-datasource/emoji.json");
-const Jimp = require("jimp");
+import commandLineArgs from "command-line-args"
+import fs from "fs-extra"
+import stable from "stable"
+import chunk from "lodash.chunk";
+import template from "lodash.template";
+import imagemin from "imagemin";
+import imageminZopfli from "imagemin-zopfli"
+import imageminPngquant from "imagemin-pngquant"
+import Jimp from "jimp"
+
+const emojiData = await fs.readJson("./node_modules/emoji-datasource/emoji.json");
 
 /**
  * The targets for generating. Extend these for adding more emoji variants.
@@ -70,24 +70,72 @@ const duplicates = ["1F926", "1F937", "1F938", "1F93C", "1F93D", "1F93E", "1F939
 
 /**
  * Metadata about the categories.
- * @type {{name: string, text: string}[]}
+ * @type {{name: string, i18n: [{{key: string, value: string}}]}[]}
  */
 const categoryInfo = [
-    {"name": "SmileysAndPeople", "text": "Faces"},
-    {"name": "AnimalsAndNature", "text": "Nature"},
-    {"name": "FoodAndDrink", "text": "Food"},
-    {"name": "Activities", "text": "Activities"},
-    {"name": "TravelAndPlaces", "text": "Places"},
-    {"name": "Objects", "text": "Objects"},
-    {"name": "Symbols", "text": "Symbols"},
-    {"name": "Flags", "text": "Flags"},
+    {
+      "name": "SmileysAndPeople",
+      "i18n": [
+        { "key": "en", "value": "Faces" },
+        { "key": "de", "value": "Gesichter" }
+      ]
+    },
+    {
+      "name": "AnimalsAndNature",
+      "i18n": [
+        { "key": "en", "value": "Nature" },
+        { "key": "de", "value": "Natur" }
+      ]
+    },
+    {
+      "name": "FoodAndDrink",
+      "i18n": [
+        { "key": "en", "value": "Food" },
+        { "key": "de", "value": "Essen" }
+      ]
+    },
+    {
+      "name": "Activities",
+      "i18n": [
+        { "key": "en", "value": "Activities" },
+        { "key": "de", "value": "Aktivitäten" }
+      ]
+    },
+    {
+      "name": "TravelAndPlaces",
+      "i18n": [
+        { "key": "en", "value": "Places" },
+        { "key": "de", "value": "Orte" }
+      ]
+    },
+    {
+      "name": "Objects",
+      "i18n": [
+        { "key": "en", "value": "Objects" },
+        { "key": "de", "value": "Objekte" }
+      ]
+    },
+    {
+      "name": "Symbols",
+      "i18n": [
+        { "key": "en", "value": "Symbols" },
+        { "key": "de", "value": "Symbole" }
+      ]
+    },
+    {
+      "name": "Flags",
+      "i18n": [
+        { "key": "en", "value": "Flags" },
+        { "key": "de", "value": "Flaggen" }
+      ]
+    },
 ];
 
 /**
  * The amount of emojis to put in a chunk.
  * @type {number}
  */
-const chunkSize = 250;
+const chunkSize = 150;
 
 /**
  * Helper function to be used by {@link #copyImages} for copying (and optimizing) the images of a single target
@@ -161,7 +209,7 @@ function generateChunkedEmojiCode(target, emojis) {
     const list = generateEmojiCode(target, emojis)
     const chunked = chunk(list, chunkSize)
 
-    return chunked.map(chunk => chunk.join(`,\n      `))
+    return chunked.map(chunk => chunk.join(`\n    `))
 }
 
 /**
@@ -169,10 +217,10 @@ function generateChunkedEmojiCode(target, emojis) {
  * Generates the code for a list of emoji with their variants if present.
  * @param target The target to generate for. It is checked if the target has support for the emoji before generating.
  * @param emojis The emojis.
- * @param indent The indent to use. Defaults to 6.
+ * @param indent The indent to use. Defaults to 4.
  * @returns {string[]} The list of generated code parts.
  */
-function generateEmojiCode(target, emojis, indent = 6) {
+function generateEmojiCode(target, emojis, indent = 4) {
     let indentString = "";
 
     for (let i = 0; i < indent; i++) {
@@ -182,40 +230,43 @@ function generateEmojiCode(target, emojis, indent = 6) {
     return emojis.filter(it => it[target.package]).map((it) => {
         const unicodeParts = it.unicode.split("-");
         let result;
+        let hasVariants = it.variants.filter(it => it[target.package]).length > 0;
+        let newLinePrefix = `\n${indentString}  `
+        let separator = hasVariants ? newLinePrefix : ""
 
         if (target.module !== "google-compat") {
             if (unicodeParts.length === 1) {
-                result = `new ${target.name}(0x${unicodeParts[0]}, ${generateShortcodeCode(it)}, ${it.x}, ${it.y}, ${it.isDuplicate}`;
+                result = `${target.name}(${separator}String(intArrayOf(0x${unicodeParts[0]}), 0, 1), ${generateShortcodeCode(it)}, ${it.x}, ${it.y}, ${it.isDuplicate}`;
             } else {
                 const transformedUnicodeParts = unicodeParts.map(it => "0x" + it).join(", ")
 
-                result = `new ${target.name}(new int[] { ${transformedUnicodeParts} }, ${generateShortcodeCode(it)}, ${it.x}, ${it.y}, ${it.isDuplicate}`;
+                result = `${target.name}(${separator}String(intArrayOf(${transformedUnicodeParts}), 0, ${unicodeParts.length}), ${generateShortcodeCode(it)}, ${it.x}, ${it.y}, ${it.isDuplicate}`;
             }
         } else {
             if (unicodeParts.length === 1) {
-                result = `new ${target.name}(0x${unicodeParts[0]}, ${generateShortcodeCode(it)}, ${it.isDuplicate}`;
+                result = `${target.name}(${separator}String(intArrayOf(0x${unicodeParts[0]}), 0, 1), ${generateShortcodeCode(it)}, ${it.isDuplicate}`;
             } else {
                 const transformedUnicodeParts = unicodeParts.map(it => "0x" + it).join(", ")
 
-                result = `new ${target.name}(new int[] { ${transformedUnicodeParts} }, ${generateShortcodeCode(it)}, ${it.isDuplicate}`;
+                result = `${target.name}(${separator}String(intArrayOf(${transformedUnicodeParts}), 0, ${unicodeParts.length}), ${generateShortcodeCode(it)}, ${it.isDuplicate}`;
             }
         }
 
-        if (it.variants.filter(it => it[target.package]).length > 0) {
-            const generatedVariants = generateEmojiCode(target, it.variants, indent + 2).join(`,\n${indentString}  `)
+        if (hasVariants) {
+            const generatedVariants = generateEmojiCode(target, it.variants, indent + 2).join(`\n${indentString}    `)
 
-            return `${result},\n${indentString}  ${generatedVariants}\n${indentString})`;
+            return `${result},${newLinePrefix}variants = listOf(${newLinePrefix}  ${generatedVariants}${newLinePrefix}),\n${indentString}),`;
         } else {
-            return `${result})`;
+            return `${result}),`;
         }
     })
 }
 
 function generateShortcodeCode(emoji) {
     if (!emoji.shortcodes || emoji.shortcodes.length === 0) {
-        return 'new String[0]'
+        return 'emptyList<String>()'
     } else {
-        return `new String[]{"${emoji.shortcodes.join(`", "`)}"}`
+        return `listOf("${emoji.shortcodes.join(`", "`)}")`
     }
 }
 
@@ -227,7 +278,7 @@ async function parse() {
     console.log("Parsing files...");
 
     const result = new Map();
-    const filteredEmojiData = emojiData.filter(it => it.category !== "Skin Tones");
+    const filteredEmojiData = emojiData.filter(it => it.category !== "Component");
     const preparedEmojiData = stable(filteredEmojiData, (first, second) => first.sort_order - second.sort_order);
 
     for (const dataEntry of preparedEmojiData) {
@@ -244,7 +295,7 @@ async function parse() {
         };
 
         // Star can have an extra variant selector - https://github.com/vanniktech/Emoji/issues/449
-        if (dataEntry.unified == "2B50") {
+        if (dataEntry.unified === "2B50") {
             const variantEmoji = {
                 unicode: dataEntry.unified + "-FE0F",
                 x: dataEntry.sheet_x,
@@ -331,32 +382,33 @@ async function copyImages(map, targets, shouldOptimize) {
  * @returns {Promise.<void>} Empty Promise.
  */
 async function generateCode(map, targets) {
-    console.log("Generating java code...");
+    console.log("Generating code...");
 
-    const emojiTemplate = await fs.readFile("template/Emoji.java", "utf-8");
-    const stringsTemplate = await fs.readFile("template/strings.xml", "utf-8");
-    const categoryTemplate = await fs.readFile("template/Category.java", "utf-8");
-    const categoryChunkTemplate = await fs.readFile("template/CategoryChunk.java", "utf-8");
-    const categoryUtilsTemplate = await fs.readFile("template/CategoryUtils.java", "utf-8");
-    const emojiProviderTemplate = await fs.readFile("template/EmojiProvider.java", "utf-8");
-    const emojiProviderCompatTemplate = await fs.readFile("template/EmojiProviderCompat.java", "utf-8");
+    const emojiTemplate = await fs.readFile("template/Emoji.kt", "utf-8");
+    const emojiCompatTemplate = await fs.readFile("template/EmojiCompat.kt", "utf-8");
+    const categoryTemplate = await fs.readFile("template/Category.kt", "utf-8");
+    const categoryChunkTemplate = await fs.readFile("template/CategoryChunk.kt", "utf-8");
+    const emojiProviderAndroid = await fs.readFile("template/EmojiProviderAndroid.kt", "utf-8");
+    const emojiProviderCompatTemplate = await fs.readFile("template/EmojiProviderCompat.kt", "utf-8");
+    const emojiProviderJvm = await fs.readFile("template/EmojiProviderJvm.kt", "utf-8");
 
     const entries = stable([...map.entries()], (first, second) => {
         return categoryInfo.findIndex(it => it.name === first[0]) - categoryInfo.findIndex(it => it.name === second[0]);
     });
 
     for (const target of targets) {
-        const srcDir = `../emoji-${target.module}/src/main/java/com/vanniktech/emoji/${target.package}`;
-        const valuesDir = `../emoji-${target.module}/src/main/res/values`;
+        const srcDir = `../emoji-${target.module}/src/androidMain/kotlin/com/vanniktech/emoji/${target.package}`;
+        const commonSrcDir = `../emoji-${target.module}/src/commonMain/kotlin/com/vanniktech/emoji/${target.package}`;
+        const jvmSrcDir = `../emoji-${target.module}/src/jvmMain/kotlin/com/vanniktech/emoji/${target.package}`;
 
         if (target.module !== "google-compat") {
-            await fs.emptyDir(srcDir);
-            await fs.mkdir(`${srcDir}/category`);
+            await fs.emptyDir(commonSrcDir);
+            await fs.mkdir(`${commonSrcDir}/category`);
         } else {
-            await fs.emptyDir(`${srcDir}/category`)
+            await fs.emptyDir(`${commonSrcDir}/category`)
         }
 
-        await fs.emptyDir(valuesDir);
+        await fs.emptyDir(jvmSrcDir);
 
         let strips = 0;
         for (const [category, emojis] of entries) {
@@ -371,7 +423,7 @@ async function generateCode(map, targets) {
 
                 chunkClasses.push(chunkClass)
 
-                await fs.writeFile(`${srcDir}/category/${chunkClass}.java`,
+                await fs.writeFile(`${commonSrcDir}/category/${chunkClass}.kt`,
                     template(categoryChunkTemplate)({
                         package: target.package,
                         name: target.name,
@@ -382,62 +434,62 @@ async function generateCode(map, targets) {
                 );
             }
 
-            await fs.writeFile(`${srcDir}/category/${category}Category.java`,
+            await fs.writeFile(`${commonSrcDir}/category/${category}Category.kt`,
                 template(categoryTemplate)({
                     package: target.package,
                     name: target.name,
                     category: category,
-                    chunks: chunkClasses.map(it => `${it}.get()`).join(", "),
-                    icon: category.toLowerCase(),
+                    chunks: chunkClasses.map(it => `${it}.EMOJIS`).join(" + "),
+                    categoryNames: categoryInfo.filter(it => it.name == category).flatMap(category => category.i18n.map(it => Object.assign({}, {key: it.key, value: it.value}))),
                 }),
             );
-
-            await fs.writeFile(`${srcDir}/category/CategoryUtils.java`,
-                template(categoryUtilsTemplate)({
-                    package: target.package,
-                    name: target.name,
-                }),
-            )
         }
 
         const imports = [...map.keys()].sort().map((category) => {
-            return `import com.vanniktech.emoji.${target.package}.category.${category}Category;`
+            return `import com.vanniktech.emoji.${target.package}.category.${category}Category`
         }).join("\n");
 
         const categories = entries.map(entry => {
             const [category] = entry;
 
-            return `new ${category}Category()`
-        }).join(",\n      ");
+            return Object.assign({}, {name: `${category}Category`, icon: category.toLowerCase()})
+        })
 
         if (target.module !== "google-compat") {
-            await fs.writeFile(`${srcDir}/${target.name}Provider.java`, template(emojiProviderTemplate)({
+            await fs.writeFile(`${srcDir}/${target.name}Provider.kt`, template(emojiProviderAndroid)({
                 package: target.package,
                 imports: imports,
                 name: target.name,
                 categories: categories,
-            }));
-        } else {
-            await fs.writeFile(`${srcDir}/${target.name}Provider.java`, template(emojiProviderCompatTemplate)({
-                package: target.package,
-                imports: imports,
-                name: target.name,
-                categories: categories,
-            }));
-        }
-
-        if (target.module !== "google-compat") {
-            await fs.writeFile(`${srcDir}/${target.name}.java`, template(emojiTemplate)({
-                package: target.package,
-                name: target.name,
                 strips: strips,
             }));
+        } else {
+            await fs.writeFile(`${srcDir}/${target.name}Provider.kt`, template(emojiProviderCompatTemplate)({
+                package: target.package,
+                imports: imports,
+                name: target.name,
+                categories: categories,
+            }));
         }
 
-        await fs.writeFile(`${valuesDir}/strings.xml`, template(stringsTemplate)({
+        await fs.writeFile(`${jvmSrcDir}/${target.name}Provider.kt`, template(emojiProviderJvm)({
             package: target.package,
-            categories: categoryInfo.map(it => Object.assign({}, it, {name: it.name.toLowerCase()})),
+            imports: imports,
+            name: target.name,
+            categories: categories,
         }));
+
+        if (target.module !== "google-compat") {
+            await fs.writeFile(`${commonSrcDir}/${target.name}.kt`, template(emojiTemplate)({
+                package: target.package,
+                name: target.name,
+            }));
+        } else {
+            await fs.writeFile(`${commonSrcDir}/${target.name}.kt`, template(emojiCompatTemplate)({
+                package: target.package,
+                name: target.name,
+            }));
+        }
     }
 }
 

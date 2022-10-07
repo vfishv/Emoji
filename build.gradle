@@ -1,36 +1,41 @@
-apply plugin: 'com.vanniktech.code.quality.tools'
-
 buildscript {
-  ext.versions = [
-    kotlin: '1.6.21',
-  ]
-
   repositories {
     mavenCentral()
     google()
     gradlePluginPortal()
   }
   dependencies {
-    classpath 'com.vanniktech:gradle-code-quality-tools-plugin:0.21.0'
-    classpath 'com.vanniktech:gradle-maven-publish-plugin:0.19.0'
-
-    classpath 'com.android.tools.build:gradle:7.1.3'
-    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+    classpath(libs.plugin.android.cache.fix)
+    classpath(libs.plugin.androidgradleplugin)
+    classpath(libs.plugin.dependency.guard)
+    classpath(libs.plugin.dokka)
+    classpath(libs.plugin.kotlin)
+    classpath(libs.plugin.licensee)
+    classpath(libs.plugin.metalava)
+    classpath(libs.plugin.publish)
   }
+}
+
+plugins {
+  alias(libs.plugins.codequalitytools)
+  alias(libs.plugins.dependencygraphgenerator)
 }
 
 codeQualityTools {
   lint {
+    lintConfig = rootProject.file("lint.xml")
+    checkAllWarnings = true
     textReport = true
   }
   checkstyle {
-    enabled = false
+    enabled = false // Kotlin only.
   }
   pmd {
-    toolVersion = '6.0.1'
+   enabled = false // Kotlin only.
   }
   ktlint {
-    toolVersion = '0.45.2'
+    toolVersion = libs.versions.ktlint.get()
+    experimental = true
   }
   detekt {
     enabled = false
@@ -40,26 +45,41 @@ codeQualityTools {
   }
 }
 
-subprojects {
+wrapper {
+  gradleVersion = libs.versions.gradle.get()
+  distributionType = Wrapper.DistributionType.ALL
+}
+
+allprojects {
   repositories {
     google()
     mavenCentral()
+    gradlePluginPortal()
+  }
+
+  afterEvaluate {
+    // To avoid:
+    // The Kotlin source set androidAndroidTestRelease was configured but not added to any Kotlin compilation. You can add a source set to a target"s compilation by connecting it with the compilation"s default source set using "dependsOn".
+    // See https://kotlinlang.org/docs/reference/building-mpp-with-gradle.html#connecting-source-sets
+    project.extensions.findByType(org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension.class)?.sourceSets?.removeAll {
+      [
+        "androidAndroidTestRelease",
+        "androidTestFixtures",
+        "androidTestFixturesDebug",
+        "androidTestFixturesRelease"
+      ].contains(it.name)
+    }
   }
 }
 
-ext {
-  minSdkVersion = 21
-  compileSdkVersion = 31
-  targetSdkVersion = 31
+subprojects {
+  plugins.withType(com.android.build.gradle.api.AndroidBasePlugin) {
+    project.apply plugin: "org.gradle.android.cache-fix"
+  }
 
-  versionName = VERSION_NAME
-
-  testing = [
-          junit             : 'junit:junit:4.13.2',
-  ]
-}
-
-wrapper {
-  gradleVersion = '7.4.2'
-  distributionType = Wrapper.DistributionType.ALL
+  project.tasks.withType(Test) {
+    testLogging {
+      testLogging.exceptionFormat = 'full'
+    }
+  }
 }
